@@ -99,3 +99,17 @@ http_archive(
 
 load("//:workspace.bzl", "play_routes_repositories")
 play_routes_repositories()
+
+
+# bazel-common
+bazelcommon_version = "0d4a76d35fe28caf5c887ff39bfd7374b993094b"
+http_archive(
+  name = "bazel-common",
+  sha256 = "00f68b50b535e56daf563899cf6b924737d29127b8f2cb1fbcc473dbe4efad4a",
+  type = "zip",
+  strip_prefix = "bazel-common-{}".format(bazelcommon_version),
+  url = "https://github.com/google/bazel-common/archive/{}.zip".format(bazelcommon_version)
+)
+
+load("@bazel-common//:workspace_defs.bzl", "google_common_workspace_rules")
+google_common_workspace_rules()
