@@ -1,0 +1,2 @@
+# Borrowed from lucidsoftware/rules_play_routes
+GET /okNameReverse/:id rulesplayroutes.test.NamespaceReverseRoutesController.ok(id: Int)

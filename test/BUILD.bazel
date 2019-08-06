@@ -1,0 +1,93 @@
+# Borrowed from lucidsoftware/rules_play_routes but using //play-routes-compiler for the compiler cli
+
+load("@rules_scala_annex//rules:scala.bzl", "scala_test")
+load("@io_bazel_rules_play_routes//play-routes:play-routes.bzl", "play_routes")
+
+play_routes(
+  name = "play-routes",
+  srcs = ["conf/routes"],
+  include_play_imports = True,
+  play_routes_compiler = "//play-routes-compiler"
+)
+
+play_routes(
+  name = "play-routes-basic1",
+  srcs = ["conf/basic1.routes"],
+  include_play_imports = True,
+  play_routes_compiler = "//play-routes-compiler"
+)
+
+play_routes(
+  name = "play-routes-basic2",
+  srcs = ["conf/basic2.routes"],
+  include_play_imports = True,
+  play_routes_compiler = "//play-routes-compiler"
+)
+
+play_routes(
+  name = "play-routes-large",
+  srcs = ["conf/large.routes"],
+  include_play_imports = True,
+  play_routes_compiler = "//play-routes-compiler"
+)
+
+play_routes(
+  name = "play-routes-additional-imports",
+  srcs = ["conf/additional_imports.routes"],
+  include_play_imports = True,
+  routes_imports = [
+    "rulesplayroutes.test.User",
+    "rulesplayroutes.test.binders._",
+  ],
+  play_routes_compiler = "//play-routes-compiler"
+)
+
+play_routes(
+  name = "play-routes-different-generator",
+  srcs = ["conf/generator.routes"],
+  include_play_imports = True,
+  routes_generator = "play.routes.compiler.StaticRoutesGenerator",
+  play_routes_compiler = "//play-routes-compiler"
+)
+
+play_routes(
+  name = "play-routes-reverse-router",
+  srcs = ["conf/reverse_router.routes"],
+  include_play_imports = True,
+  generate_reverse_router = True,
+  play_routes_compiler = "//play-routes-compiler"
+)
+
+# TOOD: Figure out what this does and add the test for it
+# play_routes(
+#   name = "play-routes-namespace-router",
+#   srcs = ["conf/namespace_router.routes"],
+#   include_play_imports = True,
+#   generate_reverse_router = True,
+#   namespace_reverse_router = True,
+#   play_routes_compiler = "//play-routes-compiler"
+# )
+
+scala_test(
+  name = "play-routes-compiler-test",
+  srcs = glob(["app/**/*.scala"]) + [
+    "PlayRoutesCompilerTest.scala",
+    ":play-routes",
+    ":play-routes-large",
+    ":play-routes-basic1",
+    ":play-routes-basic2",
+    ":play-routes-additional-imports",
+    ":play-routes-different-generator",
+    ":play-routes-reverse-router",
+    # ":play-routes-namespace-router",
+  ],
+  deps = [
+    "@play_routes_test//:org_specs2_specs2_common_2_11",
+    "@play_routes_test//:org_specs2_specs2_core_2_11",
+    "@play_routes_test//:org_specs2_specs2_matcher_2_11",
+    "@play_routes_test//:com_typesafe_akka_akka_actor_2_11",
+    "@play_routes_test//:com_typesafe_play_play_2_11",
+    "@play_routes_test//:com_typesafe_play_play_specs2_2_11",
+    "@play_routes_test//:com_typesafe_play_play_test_2_11",
+  ]
+)

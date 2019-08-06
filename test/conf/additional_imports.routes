@@ -1,0 +1,2 @@
+# Borrowed from lucidsoftware/rules_play_routes
+GET /okUser/:user rulesplayroutes.test.UserController.ok(user: rulesplayroutes.test.User)
