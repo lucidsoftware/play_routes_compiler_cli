@@ -1,0 +1,2 @@
+# Borrowed from lucidsoftware/rules_play_routes
+GET /okGenerator rulesplayroutes.test.GeneratorController.ok()

@@ -9,7 +9,7 @@ git:
 os:
   - linux
 env:
-  - V=0.23.0
+  - V=0.28.0
 before_install:
   # Borrowed from rules_scala
   - |
@@ -30,7 +30,7 @@ before_install:
     rm -f install.sh
   - cat .bazelrc.travis >> .bazelrc
 script:
-  - bazel build play-routes-compiler:play-routes-compiler_deploy.jar
+  - ./test/run_all_tests.sh ci
 after_success:
   - |
     if [ "$TRAVIS_SECURE_ENV_VARS" == true ]; then

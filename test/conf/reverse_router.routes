@@ -1,0 +1,2 @@
+# Borrowed from lucidsoftware/rules_play_routes
+GET /okReverse/:id rulesplayroutes.test.ReverseRoutesController.ok(id: Int)
