@@ -4,9 +4,9 @@ Load 3rd party maven dependencies
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
-def play_routes_repositories():
+def play_routes_compiler_cli_repositories():
     maven_install(
-        name = "play_routes",
+        name = "play_routes_compiler_cli_maven",
         artifacts = [
             "com.github.scopt:scopt_2.11:3.7.0",
             "com.typesafe.play:routes-compiler_2.11:2.5.19",
@@ -21,4 +21,5 @@ def play_routes_repositories():
             "http://central.maven.org/maven2",
         ],
         fetch_sources = True,
+        maven_install_json = "//:play_routes_compiler_cli_maven_install.json",
     )

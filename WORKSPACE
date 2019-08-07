@@ -1,4 +1,4 @@
-workspace(name = "compiler_cli")
+workspace(name = "play_routes_compiler_cli")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
@@ -12,8 +12,11 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/{}.zip".format(RULES_JVM_EXTERNAL_TAG),
 )
 
-load("//:workspace.bzl", "play_routes_repositories")
-play_routes_repositories()
+load("//:workspace.bzl", "play_routes_compiler_cli_repositories")
+play_routes_compiler_cli_repositories()
+load("@play_routes_compiler_cli_maven//:defs.bzl", play_routes_compiler_cli_pinned_maven_install = "pinned_maven_install")
+play_routes_compiler_cli_pinned_maven_install()
+
 
 # higherkindness/rules_scala
 rules_scala_annex_version = "584e319f61a7c15360831b367c9a092570df9659" # update this as needed
@@ -36,7 +39,7 @@ load("@annex//:defs.bzl", annex_pinned_maven_install = "pinned_maven_install")
 annex_pinned_maven_install()
 scala_register_toolchains()
 
-# JDK stuff needed for Scala 2.11
+# Java 8 is needed for Scala 2.11; this is needed to enable that
 jdk_build_file_content = """
 filegroup(
     name = "jdk",
