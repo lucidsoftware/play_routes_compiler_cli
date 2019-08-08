@@ -1,5 +1,6 @@
 load("@rules_scala_annex//rules:scala.bzl", "scala_binary")
 load("@bazel-common//tools/maven:pom_file.bzl", "pom_file")
+load("@env_vars//:env_vars.bzl", "TRAVIS_TAG")
 
 scala_binary(
   name = "play-routes-compiler",
@@ -14,13 +15,11 @@ scala_binary(
   ],
 )
 
-# Must end in -SNAPSHOT if this is a snapshot release (i.e. if this shouldn't deploy to Maven Central)
-# Do not rename this field
-version = "0.1"
+compiler_cli_version = TRAVIS_TAG if len(TRAVIS_TAG) > 0 else "non-published-SNAPSHOT"
 
 pom_file(
   name = "pom",
   targets = [":play-routes-compiler"],
   template_file = "pom.template.xml",
-  substitutions = {"VERSION": version}
+  substitutions = {"VERSION": compiler_cli_version}
 )
