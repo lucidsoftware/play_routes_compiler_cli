@@ -43,10 +43,10 @@ play_routes(
 )
 
 play_routes(
-  name = "play-routes-different-generator",
+  name = "play-routes-specified-generator",
   srcs = ["conf/generator.routes"],
   include_play_imports = True,
-  routes_generator = "play.routes.compiler.StaticRoutesGenerator",
+  routes_generator = "play.routes.compiler.InjectedRoutesGenerator",
   play_routes_compiler = "//play-routes-compiler"
 )
 
@@ -77,7 +77,7 @@ scala_test(
     ":play-routes-basic1",
     ":play-routes-basic2",
     ":play-routes-additional-imports",
-    ":play-routes-different-generator",
+    ":play-routes-specified-generator",
     ":play-routes-reverse-router",
     # ":play-routes-namespace-router",
   ],
