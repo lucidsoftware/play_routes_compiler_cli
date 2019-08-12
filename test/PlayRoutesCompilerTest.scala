@@ -2,14 +2,15 @@
 package rulesplayroutes.test
 
 import org.specs2.mutable.Specification
-import play.api.test._
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.test.FakeRequest
 import play.api.test.WithApplication
 import play.api.test.Helpers._
 import rulesplayroutes.test.routes.ReverseRoutesController
 
 class PlayRoutesCompilerTest extends Specification {
 
-  val app = new FakeApplication()
+  val app = new GuiceApplicationBuilder()
 
   "Play Routes Compiler when run through Bazel" should {
     "Compile Play routes" in new WithApplication() {
