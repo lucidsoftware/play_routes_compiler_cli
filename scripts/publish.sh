@@ -2,22 +2,12 @@
 ##
 ## Build and deploy the play routes compiler jar
 
-# Build the deploy jar
-bazel build play-routes-compiler:play-routes-compiler_deploy.jar
-
-# Generate pom.xml
-bazel build play-routes-compiler:pom
-
-# The version to publish under is specified by the TRAVIS_TAG environment variable, which is loaded by a workspace rule
-artifactId="play-routes-compiler-cli"
-version=$(cat $(bazel info output_base)/external/env_vars/env_vars.bzl | grep "TRAVIS_TAG" | awk -F '"' '{print $2}')
-if [ -z "$version" ]; then
-  echo "version is not defined. Aborting publish to Maven."
+artifactId="$(printenv COMPILER_CLI_ARTIFACT_ID)"
+version="$(printenv COMPILER_CLI_VERSION)"
+if [ -z "$artifactId" ] || [ -z "$version" ]; then
+  echo "Either the artifactId or the version is not defined. Aborting publish to Maven."
   exit 1
 fi
-
-deploy_jar="bazel-out/k8-fastbuild/bin/play-routes-compiler/play-routes-compiler_deploy.jar"
-pom_file="bazel-out/k8-fastbuild/bin/play-routes-compiler/pom.xml"
 
 # Maven requires a source jar and a javadoc jar to be included, but this is a Scala project
 mkdir -p temp
@@ -27,7 +17,7 @@ javadoc_jar="temp/$artifactId-$version-javadoc.jar"
 jar -cf "$source_jar" temp/README
 jar -cf "$javadoc_jar" temp/README
 
-# There might be a better way to do this
+# Determine the url to publish to based on whether this is a SNAPSHOT version
 is_snapshot=$(echo "$version" | grep -o "SNAPSHOT" | wc -w)
 if [[ $is_snapshot > 0 ]]; then
 	url="https://oss.sonatype.org/content/repositories/snapshots"
@@ -35,8 +25,16 @@ else
 	url="https://oss.sonatype.org/service/local/staging/deploy/maven2"
 fi
 
+# Build everything
+bazel clean --expunge
+bazel build play-routes-compiler:play-routes-compiler_deploy.jar
+bazel build play-routes-compiler:pom
+
+deploy_jar="bazel-out/k8-fastbuild/bin/play-routes-compiler/play-routes-compiler_deploy.jar"
+pom_file="bazel-out/k8-fastbuild/bin/play-routes-compiler/pom.xml"
+
 # Deploy to maven
-echo "Deploying $artifactId-$version to $url"
+echo "Deploying $artifactId:$version to $url"
 mvn -e --fail-at-end gpg:sign-and-deploy-file \
 	-Dfile="$deploy_jar" \
 	-DpomFile="$pom_file" \

@@ -1,6 +1,6 @@
 load("@rules_scala_annex//rules:scala.bzl", "scala_binary")
 load("@bazel-common//tools/maven:pom_file.bzl", "pom_file")
-load("@env_vars//:env_vars.bzl", "TRAVIS_TAG")
+load("@env_vars//:env_vars.bzl", "COMPILER_CLI_ARTIFACT_ID", "COMPILER_CLI_VERSION")
 
 scala_binary(
   name = "play-routes-compiler",
@@ -15,11 +15,15 @@ scala_binary(
   ],
 )
 
-compiler_cli_version = TRAVIS_TAG if len(TRAVIS_TAG) > 0 else "non-published-SNAPSHOT"
+artifact_id = COMPILER_CLI_ARTIFACT_ID if len(COMPILER_CLI_ARTIFACT_ID) > 0 else "play_routes_compiler_cli"
+version = COMPILER_CLI_VERSION if len(COMPILER_CLI_VERSION) > 0 else "non-published-SNAPSHOT"
 
 pom_file(
   name = "pom",
   targets = [":play-routes-compiler"],
   template_file = "pom.template.xml",
-  substitutions = {"VERSION": compiler_cli_version}
+  substitutions = {
+    "ARTIFACT_ID": artifact_id,
+    "VERSION": version
+    }
 )
