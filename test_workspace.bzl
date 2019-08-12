@@ -12,9 +12,9 @@ def play_routes_compiler_cli_test_repositories():
             "org.specs2:specs2-core_2.11:3.6.6",
             "org.specs2:specs2-matcher_2.11:3.6.6",
             "com.typesafe.akka:akka-actor_2.11:2.4.20",
-            "com.typesafe.play:play_2.11:2.5.19",
-            "com.typesafe.play:play-test_2.11:2.5.19",
-            "com.typesafe.play:play-specs2_2.11:2.5.19",
+            "com.typesafe.play:play_2.11:2.6.23",
+            "com.typesafe.play:play-test_2.11:2.6.23",
+            "com.typesafe.play:play-specs2_2.11:2.6.23",
         ],
         repositories = [
             "http://central.maven.org/maven2",
