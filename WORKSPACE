@@ -17,6 +17,11 @@ play_routes_compiler_cli_repositories()
 load("@play_routes_compiler_cli_maven//:defs.bzl", play_routes_compiler_cli_pinned_maven_install = "pinned_maven_install")
 play_routes_compiler_cli_pinned_maven_install()
 
+load("//:test_workspace.bzl", "play_routes_compiler_cli_test_repositories")
+play_routes_compiler_cli_test_repositories()
+load("@play_routes_compiler_cli_test_maven//:defs.bzl", play_routes_compiler_cli_test_pinned_maven_install = "pinned_maven_install")
+play_routes_compiler_cli_test_pinned_maven_install()
+
 
 # higherkindness/rules_scala
 rules_scala_annex_version = "584e319f61a7c15360831b367c9a092570df9659" # update this as needed
@@ -127,8 +132,5 @@ play_routes_repositories()
 load("@play_routes//:defs.bzl", play_routes_pinned_maven_install = "pinned_maven_install")
 play_routes_pinned_maven_install()
 
-load("@io_bazel_rules_play_routes//:test_workspace.bzl", "play_routes_test_repositories")
-play_routes_test_repositories()
-load("@play_routes_test//:defs.bzl", play_routes_test_pinned_maven_install = "pinned_maven_install")
-play_routes_test_pinned_maven_install()
+
 
