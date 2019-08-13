@@ -46,7 +46,7 @@ play_routes(
   name = "play-routes-specified-generator",
   srcs = ["conf/generator.routes"],
   include_play_imports = True,
-  routes_generator = "play.routes.compiler.StaticRoutesGenerator",
+  routes_generator = "play.routes.compiler.InjectedRoutesGenerator",
   play_routes_compiler = "//play-routes-compiler"
 )
 
