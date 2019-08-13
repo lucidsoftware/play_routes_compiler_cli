@@ -1,0 +1,71 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.lucidchart</groupId>
+  <artifactId>play-routes-compiler-cli_2.11</artifactId>
+  <version>2.5.19</version>
+  <packaging>jar</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>A CLI for the Play routes compiler</description>
+  <url>https://github.com/lucidsoftware/play_routes_compiler_cli</url>
+
+  <organization>
+    <name>Lucid Software, Inc.</name>
+    <url>https://www.lucidchart.com/pages</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>James Judd</name>
+      <email>james@lucidchart.com</email>
+      <organization>Lucid Software, Inc.</organization>
+      <organizationUrl>https://www.lucidchart.com/pages</organizationUrl>
+    </developer>
+    <developer>
+      <name>Kevin Hwang</name>
+      <email>borkaehw@lucidchart.com</email>
+      <organization>Lucid Software, Inc.</organization>
+      <organizationUrl>https://www.lucidchart.com/pages</organizationUrl>
+    </developer>
+    <developer>
+      <name>Sergio Rodriguez Orellana</name>
+      <email>sergio@lucidchart.com</email>
+      <organization>Lucid Software, Inc.</organization>
+      <organizationUrl>https://www.lucidchart.com/pages</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/lucidsoftware/play_routes_compiler_cli.git</url>
+    <connection>scm:git:https://github.com/lucidsoftware/play_routes_compiler_cli.git</connection>
+    <developerConnection>scm:git:https://github.com/lucidsoftware/play_routes_compiler_cli.git</developerConnection>
+  </scm>
+
+  <dependencies>
+<dependency>
+  <groupId>com.github.scopt</groupId>
+  <artifactId>scopt_2.11</artifactId>
+  <version>3.7.0</version>
+</dependency>
+<dependency>
+  <groupId>com.typesafe.play</groupId>
+  <artifactId>routes-compiler_2.11</artifactId>
+  <version>2.5.19</version>
+</dependency>
+<dependency>
+  <groupId>org.scala-lang</groupId>
+  <artifactId>scala-reflect</artifactId>
+  <version>2.11.12</version>
+</dependency>
+  </dependencies>
+
+</project>
