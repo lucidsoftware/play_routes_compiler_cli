@@ -8,14 +8,14 @@ def play_routes_compiler_cli_repositories():
     maven_install(
         name = "play_routes_compiler_cli_maven",
         artifacts = [
-            "com.github.scopt:scopt_2.11:3.7.0",
-            "com.typesafe.play:routes-compiler_2.11:2.7.2",
-            "org.scala-sbt:zinc_2.11:1.2.1",
+            "com.github.scopt:scopt_2.12:3.7.0",
+            "com.typesafe.play:routes-compiler_2.12:2.6.23",
+            "org.scala-sbt:zinc_2.12:1.2.1",
             "org.scala-sbt:compiler-interface:1.2.1",
             "org.scala-sbt:util-interface:1.2.0",
-            "org.scala-lang:scala-compiler:2.11.12",
-            "org.scala-lang:scala-library:2.11.12",
-            "org.scala-lang:scala-reflect:2.11.12",
+            "org.scala-lang:scala-compiler:2.12.8",
+            "org.scala-lang:scala-library:2.12.8",
+            "org.scala-lang:scala-reflect:2.12.8",
         ],
         repositories = [
             "http://central.maven.org/maven2",
