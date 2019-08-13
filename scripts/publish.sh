@@ -26,7 +26,7 @@ else
 fi
 
 # Build everything
-bazel clean --expunge
+#bazel clean --expunge
 bazel build play-routes-compiler:play-routes-compiler_deploy.jar
 bazel build play-routes-compiler:pom
 
