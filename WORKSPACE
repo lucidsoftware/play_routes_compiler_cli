@@ -114,7 +114,7 @@ http_archive(
 load("@env_vars_to_bzl_vars//:env_vars_loader.bzl", "load_env_vars")
 load_env_vars(
   name = "env_vars",
-  env_vars = ["TRAVIS_TAG"]
+  env_vars = ["COMPILER_CLI_ARTIFACT_ID", "COMPILER_CLI_VERSION"]
 )
 
 ## For tests
