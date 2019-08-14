@@ -32,20 +32,55 @@
 
 source_jar="to_deploy/play-routes-compiler-cli_2.12-2.7.2-sources.jar"
 javadoc_jar="to_deploy/play-routes-compiler-cli_2.12-2.7.2-javadoc.jar"
+
 deploy_jar="to_deploy/play-routes-compiler_deploy.jar"
 pom_file="to_deploy/pom.xml"
 url="https://oss.sonatype.org/service/local/staging/deploy/maven2"
 
+artifactId="play-routes-compiler-cli_2.11"
+version="2.5.19"
+groupId="com.lucidchart"
+
+# Create signatures
+gpg -ab "$deploy_jar"
+gpg -ab "$pom_file"
+gpg -ab "$javadoc_jar"
+gpg -ab "$source_jar"
+
 # Deploy to maven
-echo "Deploying"
-mvn gpg:sign-and-deploy-file \
+# echo "Deploying jar.asc"
+# mvn deploy:deploy-file \
+# 	-Dfile=$jar_asc \
+# 	-DrepositoryId="oss-sonatype-org" \
+# 	-Durl="$url" \
+# 	-DartifactId="$artifactId" \
+# 	-Dversion="$version" \
+# 	-DgroupId="$groupId" \
+# 	--settings=".mvn_settings.travis.xml" \
+# 	--fail-never
+
+# echo "Deploying pom.asc"
+# mvn deploy:deploy-file \
+# 	-Dfile=$pom_asc \
+# 	-DrepositoryId="oss-sonatype-org" \
+# 	-Durl="$url" \
+# 	-DartifactId="$artifactId" \
+# 	-Dversion="$version" \
+# 	-DgroupId="$groupId" \
+# 	--settings=".mvn_settings.travis.xml" \
+# 	--fail-never
+
+echo "Deploying to Maven"
+mvn deploy:deploy-file \
 	-Dfile="$deploy_jar" \
+	-Dfiles="$javadoc_jar.asc","$source_jar.asc","$deploy_jar.asc","$pom_file.asc" \
+	-Dtypes=jar.asc,jar.asc,jar.asc,pom.asc \
+	-Dclassifiers=javadoc,sources,, \
 	-DpomFile="$pom_file" \
 	-DrepositoryId="oss-sonatype-org" \
 	-Durl="$url" \
 	-Djavadoc="$javadoc_jar" \
 	-Dsources="$source_jar" \
 	--settings=".mvn_settings.travis.xml" \
-	--fail-never
 
 echo "Deployment complete."
