@@ -18,8 +18,7 @@ jar -cf "$source_jar" temp/README
 jar -cf "$javadoc_jar" temp/README
 
 # Determine the url to publish to based on whether this is a SNAPSHOT version
-is_snapshot=$(echo "$version" | grep -o "SNAPSHOT" | wc -w)
-if [[ $is_snapshot > 0 ]]; then
+if [[ $version =~ .*SNAPSHOT$ ]]; then
 	url="https://oss.sonatype.org/content/repositories/snapshots"
 else
 	url="https://oss.sonatype.org/service/local/staging/deploy/maven2"
