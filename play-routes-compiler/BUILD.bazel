@@ -15,8 +15,11 @@ scala_binary(
   ],
 )
 
-artifact_id = COMPILER_CLI_ARTIFACT_ID if len(COMPILER_CLI_ARTIFACT_ID) > 0 else "play_routes_compiler_cli"
-version = COMPILER_CLI_VERSION if len(COMPILER_CLI_VERSION) > 0 else "non-published-SNAPSHOT"
+# artifact_id = COMPILER_CLI_ARTIFACT_ID if len(COMPILER_CLI_ARTIFACT_ID) > 0 else "play_routes_compiler_cli"
+# version = COMPILER_CLI_VERSION if len(COMPILER_CLI_VERSION) > 0 else "non-published-SNAPSHOT"
+
+artifact_id="play-routes-compiler-cli_2.11"
+version="test-deploy-0.1"
 
 pom_file(
   name = "pom",
