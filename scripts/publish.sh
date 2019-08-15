@@ -30,18 +30,27 @@ bazel clean --expunge
 bazel build play-routes-compiler:play-routes-compiler_deploy.jar
 bazel build play-routes-compiler:pom
 
-deploy_jar="bazel-out/k8-fastbuild/bin/play-routes-compiler/play-routes-compiler_deploy.jar"
-pom_file="bazel-out/k8-fastbuild/bin/play-routes-compiler/pom.xml"
+deploy_jar="bazel-bin/play-routes-compiler/play-routes-compiler_deploy.jar"
+pom_file="bazel-bin/play-routes-compiler/pom.xml"
+
+# Create signatures
+gpg -ab "$deploy_jar"
+gpg -ab "$pom_file"
+gpg -ab "$javadoc_jar"
+gpg -ab "$source_jar"
 
 # Deploy to maven
 echo "Deploying $artifactId:$version to $url"
-mvn -e --fail-at-end gpg:sign-and-deploy-file \
+mvn deploy:deploy-file \
 	-Dfile="$deploy_jar" \
+	-Dfiles="$javadoc_jar.asc","$source_jar.asc","$deploy_jar.asc","$pom_file.asc" \
+	-Dtypes=jar.asc,jar.asc,jar.asc,pom.asc \
+	-Dclassifiers=javadoc,sources,, \
 	-DpomFile="$pom_file" \
 	-DrepositoryId="oss-sonatype-org" \
 	-Durl="$url" \
-  -Djavadoc="$javadoc_jar" \
-  -Dsources="$source_jar" \
+	-Djavadoc="$javadoc_jar" \
+	-Dsources="$source_jar" \
 	--settings=".mvn_settings.travis.xml"
 
 rm -r temp
