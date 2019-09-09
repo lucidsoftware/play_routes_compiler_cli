@@ -17,7 +17,8 @@ object CommandLinePlayRoutesCompiler {
     additionalImports: Seq[String] = Seq.empty[String],
     routesGenerator: RoutesGenerator = InjectedRoutesGenerator,
     generateReverseRouter: Boolean = false,
-    namespaceReverserRouter: Boolean = false
+    namespaceReverserRouter: Boolean = false,
+    generateForwardsRouter: Boolean = true
   )
 
   val parser = new scopt.OptionParser[Config]("scopt") {
@@ -64,6 +65,10 @@ object CommandLinePlayRoutesCompiler {
     opt[Unit]('n', "namespaceReverserRouter").maxOccurs(1).action { (value, config) =>
       config.copy(namespaceReverserRouter = true)
     }.text("Whether the reverse router should be namespaced. Useful if you have many routers that use the same actions.")
+
+    opt[Boolean]('f', "generateForwardsRouter").maxOccurs(1).action { (value, config) =>
+      config.copy(generateForwardsRouter = value)
+    }.text("Whether the forwards router should be generated. Setting this to false should allow us to only generate reverse routes for a project")
   }
 
   // The generated Routes files include non-reproducible headers
@@ -84,7 +89,7 @@ object CommandLinePlayRoutesCompiler {
         RoutesCompilerTask(
           file,
           config.additionalImports,
-          true,
+          config.generateForwardsRouter,
           config.generateReverseRouter,
           config.namespaceReverserRouter
         ),
