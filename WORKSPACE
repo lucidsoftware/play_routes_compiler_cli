@@ -118,17 +118,18 @@ load_env_vars(
 )
 
 ## For tests
-rules_play_routes_version = "6116a409bf1abcf78c4cfe1a8c55cfa01812bcc7"
+play_version = "2.5"
+rules_play_routes_version = "0acbe19d042db343399a803ee75bd7f2d68b5436"
 http_archive(
   name = "io_bazel_rules_play_routes",
-  sha256 = "9849753b2a524bee018fb929b1f1d8698d0604bb3fc21e5294420a908ca6cb47",
+  sha256 = "23f9d66901015c5e1a1c76800a93c6d1cbb5e3b086f855065e3e963c636e91e2",
   strip_prefix = "rules_play_routes-{}".format(rules_play_routes_version),
   type = "zip",
   url = "https://github.com/lucidsoftware/rules_play_routes/archive/{}.zip".format(rules_play_routes_version),
 )
 
 load("@io_bazel_rules_play_routes//:workspace.bzl", "play_routes_repositories")
-play_routes_repositories()
+play_routes_repositories(play_version)
 load("@play_routes//:defs.bzl", play_routes_pinned_maven_install = "pinned_maven_install")
 play_routes_pinned_maven_install()
 
