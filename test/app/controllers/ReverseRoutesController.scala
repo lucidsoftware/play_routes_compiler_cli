@@ -9,4 +9,8 @@ class ReverseRoutesController() extends Controller {
     Ok
   }
 
+  def anotherOk(id: Int) = Action { request =>
+    Ok
+  }
+
 }
