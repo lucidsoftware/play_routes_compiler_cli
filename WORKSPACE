@@ -118,7 +118,7 @@ load_env_vars(
 )
 
 ## For tests
-play_version = "2.5"
+play_version = "2.7" # This doesn't actually matter, since we're not using the default compilers rules_play_routes provides
 rules_play_routes_version = "0acbe19d042db343399a803ee75bd7f2d68b5436"
 http_archive(
   name = "io_bazel_rules_play_routes",
@@ -132,6 +132,3 @@ load("@io_bazel_rules_play_routes//:workspace.bzl", "play_routes_repositories")
 play_routes_repositories(play_version)
 load("@play_routes//:defs.bzl", play_routes_pinned_maven_install = "pinned_maven_install")
 play_routes_pinned_maven_install()
-
-
-
