@@ -13,9 +13,9 @@ def play_routes_compiler_cli_repositories():
             "org.scala-sbt:zinc_2.12:1.2.1",
             "org.scala-sbt:compiler-interface:1.2.1",
             "org.scala-sbt:util-interface:1.2.0",
-            "org.scala-lang:scala-compiler:2.12.8",
-            "org.scala-lang:scala-library:2.12.8",
-            "org.scala-lang:scala-reflect:2.12.8",
+            "org.scala-lang:scala-compiler:2.12.10",
+            "org.scala-lang:scala-library:2.12.10",
+            "org.scala-lang:scala-reflect:2.12.10",
         ],
         repositories = [
             "http://central.maven.org/maven2",
