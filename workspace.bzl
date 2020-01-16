@@ -18,7 +18,7 @@ def play_routes_compiler_cli_repositories():
             "org.scala-lang:scala-reflect:2.12.10",
         ],
         repositories = [
-            "http://central.maven.org/maven2",
+            "https://repo.maven.apache.org/maven2",
         ],
         fetch_sources = True,
         maven_install_json = "//:play_routes_compiler_cli_maven_install.json",
