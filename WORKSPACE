@@ -132,3 +132,12 @@ load("@io_bazel_rules_play_routes//:workspace.bzl", "play_routes_repositories")
 play_routes_repositories(play_version)
 load("@play_routes//:defs.bzl", play_routes_pinned_maven_install = "pinned_maven_install")
 play_routes_pinned_maven_install()
+
+load("@bazel_tools//tools/build_defs/repo:jvm.bzl", "jvm_maven_import_external")
+
+jvm_maven_import_external(
+    name = "scala_compiler_bridge_2_13_1",
+    artifact = "org.scala-sbt:compiler-bridge_2.13:1.3.4",
+    licenses = ["notice"],
+    server_urls = ["https://repo1.maven.org/maven2"],
+)
