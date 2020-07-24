@@ -25,7 +25,7 @@ configure_bootstrap_scala(
 
 configure_zinc_scala(
     name = "zinc",
-    compiler_bridge = "@scala_compiler_bridge_2_13_1",
+    compiler_bridge = "@play_routes_compiler_cli_maven//:org_scala_sbt_compiler_bridge_2_13",
     compiler_classpath = compiler_classpath,
     runtime_classpath = runtime_classpath,
     version = scala_version,
