@@ -1,10 +1,10 @@
 // Borrowed from lucidsoftware/rules_play_routes
 package rulesplayroutes.test
 
+import javax.inject.Inject
 import play.api.mvc._
 
-object GeneratorController extends GeneratorController()
-class GeneratorController() extends Controller {
+class GeneratorController @Inject() (cc: ControllerComponents) extends AbstractController(cc)  {
 
   def ok() = Action { request =>
     Ok

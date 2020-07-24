@@ -1,11 +1,10 @@
 load(
     "@rules_scala_annex//rules:scala.bzl",
-    "configure_bootstrap_scala",
     "configure_zinc_scala",
-    "scala_library",
+    "configure_bootstrap_scala",
 )
 
-scala_version = "2.12.10"
+scala_version = "2.13.2"
 
 compiler_classpath = [
     "@play_routes_compiler_cli_maven//:org_scala_lang_scala_compiler",
@@ -22,25 +21,11 @@ configure_bootstrap_scala(
     compiler_classpath = compiler_classpath,
     runtime_classpath = runtime_classpath,
     version = scala_version,
-    visibility = ["//visibility:public"],
-)
-
-scala_library(
-    name = "compiler_bridge",
-    srcs = [
-        "@compiler_bridge_2_12//:src",
-    ],
-    scala = ":bootstrap",
-    visibility = ["//visibility:public"],
-    deps = compiler_classpath + [
-        "@play_routes_compiler_cli_maven//:org_scala_sbt_compiler_interface",
-        "@play_routes_compiler_cli_maven//:org_scala_sbt_util_interface",
-    ],
 )
 
 configure_zinc_scala(
     name = "zinc",
-    compiler_bridge = ":compiler_bridge",
+    compiler_bridge = "@play_routes_compiler_cli_maven//:org_scala_sbt_compiler_bridge_2_13",
     compiler_classpath = compiler_classpath,
     runtime_classpath = runtime_classpath,
     version = scala_version,
