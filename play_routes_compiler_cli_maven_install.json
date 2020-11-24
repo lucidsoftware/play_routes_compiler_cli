@@ -11,7 +11,13 @@
                 "dependencies": [
                     "org.scala-lang:scala-library:2.13.2"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/com/github/scopt/scopt_2.13/3.7.1/scopt_2.13-3.7.1.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/com/github/scopt/scopt_2.13/3.7.1/scopt_2.13-3.7.1.jar"
+                ],
                 "sha256": "6592cd15368f6e26d1d73f81ed5bc93cf0dea713b8b2936a8f2f0edd3b392820",
                 "url": "https://repo.maven.apache.org/maven2/com/github/scopt/scopt_2.13/3.7.1/scopt_2.13-3.7.1.jar"
             },
@@ -20,21 +26,35 @@
                 "dependencies": [
                     "org.scala-lang:scala-library:jar:sources:2.13.2"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:jar:sources:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/com/github/scopt/scopt_2.13/3.7.1/scopt_2.13-3.7.1-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/com/github/scopt/scopt_2.13/3.7.1/scopt_2.13-3.7.1-sources.jar"
+                ],
                 "sha256": "707366c0e18f8d4188daa9e0bf788fae616f0c77500c6aafda776a538d142135",
                 "url": "https://repo.maven.apache.org/maven2/com/github/scopt/scopt_2.13/3.7.1/scopt_2.13-3.7.1-sources.jar"
             },
             {
                 "coord": "com.google.protobuf:protobuf-java:3.7.0",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/com/google/protobuf/protobuf-java/3.7.0/protobuf-java-3.7.0.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-java/3.7.0/protobuf-java-3.7.0.jar"
+                ],
                 "sha256": "dc7f93e3a3dc2c11be5ba9672af3e26410f0a3289312dbf2260d4d8a0c711a51",
                 "url": "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-java/3.7.0/protobuf-java-3.7.0.jar"
             },
             {
                 "coord": "com.google.protobuf:protobuf-java:jar:sources:3.7.0",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/com/google/protobuf/protobuf-java/3.7.0/protobuf-java-3.7.0-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-java/3.7.0/protobuf-java-3.7.0-sources.jar"
+                ],
                 "sha256": "116adc64f2e67a9f2961c410b1fbe029447c4b39c62f6ae93797989e38c85b83",
                 "url": "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-java/3.7.0/protobuf-java-3.7.0-sources.jar"
             },
@@ -46,7 +66,15 @@
                     "org.scala-lang.modules:scala-xml_2.13:1.2.0",
                     "org.scala-lang.modules:scala-parser-combinators_2.13:1.1.2"
                 ],
+                "directDependencies": [
+                    "com.typesafe.play:twirl-api_2.13:1.4.2",
+                    "org.scala-lang:scala-library:2.13.2",
+                    "org.scala-lang.modules:scala-parser-combinators_2.13:1.1.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/com/typesafe/play/routes-compiler_2.13/2.7.3/routes-compiler_2.13-2.7.3.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/com/typesafe/play/routes-compiler_2.13/2.7.3/routes-compiler_2.13-2.7.3.jar"
+                ],
                 "sha256": "30fc4b24b1ec80ea9d07ee346218cb4f7ffa3e0d078ef675061fee0ae019d5cf",
                 "url": "https://repo.maven.apache.org/maven2/com/typesafe/play/routes-compiler_2.13/2.7.3/routes-compiler_2.13-2.7.3.jar"
             },
@@ -58,7 +86,15 @@
                     "com.typesafe.play:twirl-api_2.13:jar:sources:1.4.2",
                     "org.scala-lang.modules:scala-xml_2.13:jar:sources:1.2.0"
                 ],
+                "directDependencies": [
+                    "com.typesafe.play:twirl-api_2.13:jar:sources:1.4.2",
+                    "org.scala-lang:scala-library:jar:sources:2.13.2",
+                    "org.scala-lang.modules:scala-parser-combinators_2.13:jar:sources:1.1.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/com/typesafe/play/routes-compiler_2.13/2.7.3/routes-compiler_2.13-2.7.3-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/com/typesafe/play/routes-compiler_2.13/2.7.3/routes-compiler_2.13-2.7.3-sources.jar"
+                ],
                 "sha256": "ea7dd3de097739c094fd9b113d8aa327864cab1e898acf173bed9a4e69c4f079",
                 "url": "https://repo.maven.apache.org/maven2/com/typesafe/play/routes-compiler_2.13/2.7.3/routes-compiler_2.13-2.7.3-sources.jar"
             },
@@ -68,7 +104,14 @@
                     "org.scala-lang:scala-library:2.13.2",
                     "org.scala-lang.modules:scala-xml_2.13:1.2.0"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:2.13.2",
+                    "org.scala-lang.modules:scala-xml_2.13:1.2.0"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/com/typesafe/play/twirl-api_2.13/1.4.2/twirl-api_2.13-1.4.2.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/com/typesafe/play/twirl-api_2.13/1.4.2/twirl-api_2.13-1.4.2.jar"
+                ],
                 "sha256": "0c5b389e6ede93da84de8f777fb12de0f87990b5cb5d86e48a49b289800281ef",
                 "url": "https://repo.maven.apache.org/maven2/com/typesafe/play/twirl-api_2.13/1.4.2/twirl-api_2.13-1.4.2.jar"
             },
@@ -78,35 +121,58 @@
                     "org.scala-lang:scala-library:jar:sources:2.13.2",
                     "org.scala-lang.modules:scala-xml_2.13:jar:sources:1.2.0"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:jar:sources:2.13.2",
+                    "org.scala-lang.modules:scala-xml_2.13:jar:sources:1.2.0"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/com/typesafe/play/twirl-api_2.13/1.4.2/twirl-api_2.13-1.4.2-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/com/typesafe/play/twirl-api_2.13/1.4.2/twirl-api_2.13-1.4.2-sources.jar"
+                ],
                 "sha256": "96db4825489caa7d3cb218a3b5a405d45fff702bb5c06923019ed8a512b479a7",
                 "url": "https://repo.maven.apache.org/maven2/com/typesafe/play/twirl-api_2.13/1.4.2/twirl-api_2.13-1.4.2-sources.jar"
             },
             {
                 "coord": "net.java.dev.jna:jna:5.3.1",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1.jar"
+                ],
                 "sha256": "01cb505c0698d0f7acf3524c7e73acb7dc424a5bae5e9c86ce44075ab32bc4ee",
                 "url": "https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1.jar"
             },
             {
                 "coord": "net.java.dev.jna:jna:jar:sources:5.3.1",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1-sources.jar"
+                ],
                 "sha256": "b2c47bfe2b471c3e03e0e7ffca9c2d23c3e6f63fca8a443a00129c957235ac5c",
                 "url": "https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1-sources.jar"
             },
             {
                 "coord": "org.jline:jline:3.14.1",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/jline/jline/3.14.1/jline-3.14.1.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/jline/jline/3.14.1/jline-3.14.1.jar"
+                ],
                 "sha256": "5d4ed3c37e1d90c387535534c8ef21dd9c32cbf026334122a82174266262b0d8",
                 "url": "https://repo.maven.apache.org/maven2/org/jline/jline/3.14.1/jline-3.14.1.jar"
             },
             {
                 "coord": "org.jline:jline:jar:sources:3.14.1",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/jline/jline/3.14.1/jline-3.14.1-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/jline/jline/3.14.1/jline-3.14.1-sources.jar"
+                ],
                 "sha256": "2ee7eaef1e94ac616c161ec9e3f7b601a5ee0209ea54592d20d3b43ca6e83707",
                 "url": "https://repo.maven.apache.org/maven2/org/jline/jline/3.14.1/jline-3.14.1-sources.jar"
             },
@@ -115,7 +181,13 @@
                 "dependencies": [
                     "org.scala-lang:scala-library:2.13.2"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2.jar"
+                ],
                 "sha256": "5c285b72e6dc0a98e99ae0a1ceeb4027dab9adfa441844046bd3f19e0efdcb54",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2.jar"
             },
@@ -124,7 +196,13 @@
                 "dependencies": [
                     "org.scala-lang:scala-library:jar:sources:2.13.2"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:jar:sources:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2-sources.jar"
+                ],
                 "sha256": "a5cdd33bc2dcd8917e4fea30d31ea19d0d70cc5f6951c5a913428930ced8391a",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2-sources.jar"
             },
@@ -133,7 +211,13 @@
                 "dependencies": [
                     "org.scala-lang:scala-library:2.13.2"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.2.0/scala-xml_2.13-1.2.0.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.2.0/scala-xml_2.13-1.2.0.jar"
+                ],
                 "sha256": "213d2b7840bed5d1a1d5abfa1d72d7c7454473a6f77ea329fff0574910056fd3",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.2.0/scala-xml_2.13-1.2.0.jar"
             },
@@ -142,7 +226,13 @@
                 "dependencies": [
                     "org.scala-lang:scala-library:jar:sources:2.13.2"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:jar:sources:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.2.0/scala-xml_2.13-1.2.0-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.2.0/scala-xml_2.13-1.2.0-sources.jar"
+                ],
                 "sha256": "e513d27835bcd489f70c24d5719a585f3323feae6610c06daa1533a462cf34bf",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.2.0/scala-xml_2.13-1.2.0-sources.jar"
             },
@@ -154,7 +244,16 @@
                     "org.scala-lang:scala-reflect:2.13.2",
                     "org.jline:jline:3.14.1"
                 ],
+                "directDependencies": [
+                    "net.java.dev.jna:jna:5.3.1",
+                    "org.jline:jline:3.14.1",
+                    "org.scala-lang:scala-library:2.13.2",
+                    "org.scala-lang:scala-reflect:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/scala-compiler/2.13.2/scala-compiler-2.13.2.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/scala-compiler/2.13.2/scala-compiler-2.13.2.jar"
+                ],
                 "sha256": "b04da83111decff5b36e87c74d73f5e2231b63ce605f2602e862bae917d7761a",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/scala-compiler/2.13.2/scala-compiler-2.13.2.jar"
             },
@@ -166,21 +265,38 @@
                     "net.java.dev.jna:jna:jar:sources:5.3.1",
                     "org.jline:jline:jar:sources:3.14.1"
                 ],
+                "directDependencies": [
+                    "net.java.dev.jna:jna:jar:sources:5.3.1",
+                    "org.jline:jline:jar:sources:3.14.1",
+                    "org.scala-lang:scala-library:jar:sources:2.13.2",
+                    "org.scala-lang:scala-reflect:jar:sources:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/scala-compiler/2.13.2/scala-compiler-2.13.2-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/scala-compiler/2.13.2/scala-compiler-2.13.2-sources.jar"
+                ],
                 "sha256": "a5f2eb62d8dc0ad75ff1a7d8ba1698cf2c818cece8e274dc768d079ac91bbfc4",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/scala-compiler/2.13.2/scala-compiler-2.13.2-sources.jar"
             },
             {
                 "coord": "org.scala-lang:scala-library:2.13.2",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar"
+                ],
                 "sha256": "6a1c9846feb8f5d7d33b91e61e056d272215a79747a2b7b5e5ece690bf151d5d",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar"
             },
             {
                 "coord": "org.scala-lang:scala-library:jar:sources:2.13.2",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2-sources.jar"
+                ],
                 "sha256": "dc7a4b19e478f3ad904ff398fd86f814ca172617edeb1e320323e3b4ca9b738c",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2-sources.jar"
             },
@@ -189,7 +305,13 @@
                 "dependencies": [
                     "org.scala-lang:scala-library:2.13.2"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.13.2/scala-reflect-2.13.2.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.13.2/scala-reflect-2.13.2.jar"
+                ],
                 "sha256": "21a7288874f186d6049e8b14a986011ffd96cb587f206eccf946624f2d476815",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.13.2/scala-reflect-2.13.2.jar"
             },
@@ -198,7 +320,13 @@
                 "dependencies": [
                     "org.scala-lang:scala-library:jar:sources:2.13.2"
                 ],
+                "directDependencies": [
+                    "org.scala-lang:scala-library:jar:sources:2.13.2"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.13.2/scala-reflect-2.13.2-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.13.2/scala-reflect-2.13.2-sources.jar"
+                ],
                 "sha256": "6652f8cb121d5adf50e0f909e4ce617a0e6bfca5013fc2272b1f4e2e3b1f176d",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-lang/scala-reflect/2.13.2/scala-reflect-2.13.2-sources.jar"
             },
@@ -209,7 +337,14 @@
                     "org.scala-sbt:util-interface:1.3.0",
                     "org.scala-sbt:compiler-interface:1.3.4"
                 ],
+                "directDependencies": [
+                    "com.google.protobuf:protobuf-java:3.7.0",
+                    "org.scala-sbt:compiler-interface:1.3.4"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-sbt/compiler-bridge_2.13/1.3.4/compiler-bridge_2.13-1.3.4.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-bridge_2.13/1.3.4/compiler-bridge_2.13-1.3.4.jar"
+                ],
                 "sha256": "e8ec3db63f57a7d3d7922a83ef268a0ebf037d80cdcb3d04176e9d61d7b22bcd",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-bridge_2.13/1.3.4/compiler-bridge_2.13-1.3.4.jar"
             },
@@ -220,7 +355,14 @@
                     "org.scala-sbt:compiler-interface:jar:sources:1.3.4",
                     "org.scala-sbt:util-interface:jar:sources:1.3.0"
                 ],
+                "directDependencies": [
+                    "com.google.protobuf:protobuf-java:jar:sources:3.7.0",
+                    "org.scala-sbt:compiler-interface:jar:sources:1.3.4"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-sbt/compiler-bridge_2.13/1.3.4/compiler-bridge_2.13-1.3.4-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-bridge_2.13/1.3.4/compiler-bridge_2.13-1.3.4-sources.jar"
+                ],
                 "sha256": "905c1bde4e3c4f47f20bf7dd5ff4ac637462639ad02b557f3647267e28a629ac",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-bridge_2.13/1.3.4/compiler-bridge_2.13-1.3.4-sources.jar"
             },
@@ -230,7 +372,14 @@
                     "com.google.protobuf:protobuf-java:3.7.0",
                     "org.scala-sbt:util-interface:1.3.0"
                 ],
+                "directDependencies": [
+                    "com.google.protobuf:protobuf-java:3.7.0",
+                    "org.scala-sbt:util-interface:1.3.0"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-sbt/compiler-interface/1.3.4/compiler-interface-1.3.4.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-interface/1.3.4/compiler-interface-1.3.4.jar"
+                ],
                 "sha256": "b552b04dbe8e7dce1d79b3365b59e6b71acc640089760511e969b03dd5969661",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-interface/1.3.4/compiler-interface-1.3.4.jar"
             },
@@ -240,21 +389,36 @@
                     "com.google.protobuf:protobuf-java:jar:sources:3.7.0",
                     "org.scala-sbt:util-interface:jar:sources:1.3.0"
                 ],
+                "directDependencies": [
+                    "com.google.protobuf:protobuf-java:jar:sources:3.7.0",
+                    "org.scala-sbt:util-interface:jar:sources:1.3.0"
+                ],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-sbt/compiler-interface/1.3.4/compiler-interface-1.3.4-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-interface/1.3.4/compiler-interface-1.3.4-sources.jar"
+                ],
                 "sha256": "c17d0c3e8fffefd77c66a7bac1134387a759476c37edee63055e0a58fc655ae9",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-interface/1.3.4/compiler-interface-1.3.4-sources.jar"
             },
             {
                 "coord": "org.scala-sbt:util-interface:1.3.0",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-sbt/util-interface/1.3.0/util-interface-1.3.0.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-sbt/util-interface/1.3.0/util-interface-1.3.0.jar"
+                ],
                 "sha256": "89028234b4621ac92761676a00e2e47598fcf5232a9bb994a7ed6dee94eb5aa2",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-sbt/util-interface/1.3.0/util-interface-1.3.0.jar"
             },
             {
                 "coord": "org.scala-sbt:util-interface:jar:sources:1.3.0",
                 "dependencies": [],
+                "directDependencies": [],
                 "file": "v1/https/repo.maven.apache.org/maven2/org/scala-sbt/util-interface/1.3.0/util-interface-1.3.0-sources.jar",
+                "mirror_urls": [
+                    "https://repo.maven.apache.org/maven2/org/scala-sbt/util-interface/1.3.0/util-interface-1.3.0-sources.jar"
+                ],
                 "sha256": "469b23bde6234973f9b0e8afcf2e4ef0a7747f11000235f50038cab1cbe0ed02",
                 "url": "https://repo.maven.apache.org/maven2/org/scala-sbt/util-interface/1.3.0/util-interface-1.3.0-sources.jar"
             }
