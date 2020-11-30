@@ -1,44 +1,34 @@
-dist: trusty
-sudo: false
-
 # Not technically required but suppresses 'Ruby' in Job status message.
 language: java
 
 git:
   depth: 1
-os:
-  - osx
+
 env:
-  # TRAVIS_TAG should be set as "<artifactSuffix>--<version>"; otherwise publishing will abort
   global:
-    - BAZEL=0.28.0
+    # TRAVIS_TAG should be set as "<artifactSuffix>--<version>"; otherwise publishing will abort
     - COMPILER_CLI_ARTIFACT_ID="play-routes-compiler-cli_$(awk -F '--' '{print $1}' <<< $TRAVIS_TAG)"
     - COMPILER_CLI_VERSION="$(awk -F '--' '{print $2}' <<< $TRAVIS_TAG)"
+
 before_install:
-  # Borrowed from rules_scala
-  - |
-    OS=darwin
-    if [[ $BAZEL =~ .*rc[0-9]+.* ]]; then
-      PRE_RC=$(expr "$BAZEL" : '\([0-9.]*\)rc.*')
-      RC_PRC=$(expr "$BAZEL" : '[0-9.]*\(rc.*\)')
-      URL="https://storage.googleapis.com/bazel/${PRE_RC}/${RC_PRC}/bazel-${BAZEL}-installer-${OS}-x86_64.sh"
-    else
-      URL="https://github.com/bazelbuild/bazel/releases/download/${BAZEL}/bazel-${BAZEL}-installer-${OS}-x86_64.sh"
-    fi
-    wget -nv -O install.sh "${URL}"
-    chmod +x install.sh
-    ./install.sh --user
-    rm -f install.sh
+  - npm install -g @bazel/bazelisk
   - cat .bazelrc.travis >> .bazelrc
-script:
-  - ./test/run_all_tests.sh ci
-after_success:
-  - |
-    if [ "$TRAVIS_SECURE_ENV_VARS" == true ] && [ -n "$TRAVIS_TAG" ]; then
-      echo "$PGP_SECRET" | base64 --decode | gpg --import
-      ./scripts/publish.sh
-    else
-      echo "Skipped publishing."
-      echo "Travis Tag: $TRAVIS_TAG"
-      echo "TRAVIS_SECURE_ENV_VARS: $TRAVIS_SECURE_ENV_VARS"
-    fi
+
+jobs:
+  include:
+    - stage: test
+      os: linux
+      script: ./test/run_all_tests.sh ci
+    - stage: publish
+      if: tag IS present
+      os: osx # Publishing to Maven does not work from Travis on Linux because the external IP can change mid-build
+      script: |
+              if [ "$TRAVIS_SECURE_ENV_VARS" == true ] && [ -n "$TRAVIS_TAG" ]; then
+                echo "$PGP_SECRET" | base64 --decode | gpg --import
+                ./scripts/publish.sh
+              else
+                echo "Skipped publishing."
+                echo "Travis Tag: $TRAVIS_TAG"
+                echo "TRAVIS_SECURE_ENV_VARS: $TRAVIS_SECURE_ENV_VARS"
+              fi
+

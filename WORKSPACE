@@ -3,10 +3,10 @@ workspace(name = "play_routes_compiler_cli")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # rules_jvm_external
-RULES_JVM_EXTERNAL_TAG = "2.5"
+RULES_JVM_EXTERNAL_TAG = "3.3"
 http_archive(
     name = "rules_jvm_external",
-    sha256 = "249e8129914be6d987ca57754516be35a14ea866c616041ff0cd32ea94d2f3a1",
+    sha256 = "d85951a92c0908c80bd8551002d66cb23c3434409c814179c0ff026b53544dab",
     strip_prefix = "rules_jvm_external-{}".format(RULES_JVM_EXTERNAL_TAG),
     type = "zip",
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/{}.zip".format(RULES_JVM_EXTERNAL_TAG),
@@ -24,10 +24,10 @@ play_routes_compiler_cli_test_pinned_maven_install()
 
 
 # higherkindness/rules_scala
-rules_scala_annex_version = "43bcd8eee8e07c74712f3c73c158ee2fe38ecb7c" # update this as needed
+rules_scala_annex_version = "ff423d8bdd0e5383f8f2c048ffd7704bb51a91bf" # update this as needed
 http_archive(
     name = "rules_scala_annex",
-    sha256 = "0bdb4320a589b4ffe7e5f5b261222bae5a78bcce97d9c06e31f274a5fc125d82",
+    sha256 = "ae53e9ed5fecadc7baf4637b88109471602be73dda4e5ff6b4bf1767932703c0",
     strip_prefix = "rules_scala-{}".format(rules_scala_annex_version),
     type = "zip",
     url = "https://github.com/higherkindness/rules_scala/archive/{}.zip".format(rules_scala_annex_version),
@@ -43,37 +43,6 @@ scala_repositories()
 load("@annex//:defs.bzl", annex_pinned_maven_install = "pinned_maven_install")
 annex_pinned_maven_install()
 scala_register_toolchains()
-
-# Java 8 is needed for Scala 2.11; this is needed to enable that
-jdk_build_file_content = """
-filegroup(
-    name = "jdk",
-    srcs = glob(["**/*"]),
-    visibility = ["//visibility:public"],
-)
-filegroup(
-    name = "java",
-    srcs = ["bin/java"],
-    visibility = ["//visibility:public"],
-)
-"""
-
-http_archive(
-    name = "jdk8-linux",
-    build_file_content = jdk_build_file_content,
-    sha256 = "dd28d6d2cde2b931caf94ac2422a2ad082ea62f0beee3bf7057317c53093de93",
-    strip_prefix = "jdk8u212-b03",
-    url = "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u212-b03/OpenJDK8U-jdk_x64_linux_hotspot_8u212b03.tar.gz",
-)
-
-http_archive(
-    name = "jdk8-osx",
-    build_file_content = jdk_build_file_content,
-    sha256 = "3d80857e1bb44bf4abe6d70ba3bb2aae412794d335abe46b26eb904ab6226fe0",
-    strip_prefix = "jdk8u212-b03/Contents/Home",
-    url = "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u212-b03/OpenJDK8U-jdk_x64_mac_hotspot_8u212b03.tar.gz",
-)
-
 
 # Protobuf
 protobuf_version = "3.9.0"
@@ -119,10 +88,11 @@ load_env_vars(
 
 ## For tests
 play_version = "2.7" # This doesn't actually matter, since we're not using the default compilers rules_play_routes provides
-rules_play_routes_version = "0acbe19d042db343399a803ee75bd7f2d68b5436"
+rules_play_routes_version = "8dbe5ee4359c30cfb7d368fed9b2df59c9665eb1"
+
 http_archive(
   name = "io_bazel_rules_play_routes",
-  sha256 = "23f9d66901015c5e1a1c76800a93c6d1cbb5e3b086f855065e3e963c636e91e2",
+  sha256 = "d93e6d53440a53da4c33f78736b8b78c9a1e84623bcccd6a1cbff55e1c318c97",
   strip_prefix = "rules_play_routes-{}".format(rules_play_routes_version),
   type = "zip",
   url = "https://github.com/lucidsoftware/rules_play_routes/archive/{}.zip".format(rules_play_routes_version),
