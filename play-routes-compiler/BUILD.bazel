@@ -1,29 +1,58 @@
-load("@rules_scala_annex//rules:scala.bzl", "scala_binary")
-load("@bazel-common//tools/maven:pom_file.bzl", "pom_file")
-load("@env_vars//:env_vars.bzl", "COMPILER_CLI_ARTIFACT_ID", "COMPILER_CLI_VERSION")
-
-scala_binary(
-  name = "play-routes-compiler",
-  srcs = glob(["src/main/**/*.scala"]),
-  visibility = ["//visibility:public"],
-  scalacopts = ["-Xfatal-warnings"],
-  main_class = "rulesplayroutes.routes.CommandLinePlayRoutesCompiler",
-  deps = [
-    "@play_routes_compiler_cli_maven//:com_typesafe_play_routes_compiler_2_13",
-    "@play_routes_compiler_cli_maven//:com_github_scopt_scopt_2_13",
-    "@play_routes_compiler_cli_maven//:org_scala_lang_scala_reflect",
-  ],
-)
+load("@rules_scala_annex//rules:scala.bzl", "scala_binary", "scala_library")
+load("@graknlabs_bazel_distribution//maven:rules.bzl", "assemble_maven", "deploy_maven")
+load("@env_vars//:env_vars.bzl", "COMPILER_CLI_ARTIFACT_ID")
 
 artifact_id = COMPILER_CLI_ARTIFACT_ID if len(COMPILER_CLI_ARTIFACT_ID) > 0 else "play_routes_compiler_cli"
-version = COMPILER_CLI_VERSION if len(COMPILER_CLI_VERSION) > 0 else "non-published-SNAPSHOT"
 
-pom_file(
-  name = "pom",
-  targets = [":play-routes-compiler"],
-  template_file = "pom.template.xml",
-  substitutions = {
-    "ARTIFACT_ID": artifact_id,
-    "VERSION": version
-    }
+# assemble_maven checks that the first entry in the passed-in target's files is a jar, so we can't pass in
+# a scala_binary target. Use a scala_library, and wrap it with java_binary for tests
+scala_library(
+    name = "play-routes-compiler-lib",
+    srcs = glob(["src/main/**/*.scala"]),
+    scalacopts = ["-Xfatal-warnings"],
+    tags = ["maven_coordinates=com.lucidchart:" + artifact_id + ":{pom_version}"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@play_routes_compiler_cli_maven//:com_github_scopt_scopt_2_13",
+        "@play_routes_compiler_cli_maven//:com_typesafe_play_routes_compiler_2_13",
+        "@play_routes_compiler_cli_maven//:org_scala_lang_scala_reflect",
+    ],
+)
+
+java_binary(
+    name = "play-routes-compiler",
+    main_class = "rulesplayroutes.routes.CommandLinePlayRoutesCompiler",
+    visibility = ["//visibility:public"],
+    runtime_deps = [":play-routes-compiler-lib"],
+)
+###
+
+assemble_maven(
+    name = "assemble-maven",
+    developers = {
+        "1": [
+            "name=James Judd",
+            "email=james@lucidchart.com",
+            "organization=Lucid Software, Inc.",
+        ],
+        "2": [
+            "name=Sergio Rodriguez Orellana",
+            "email=sergio@lucidchart.com",
+            "organization=Lucid Software, Inc.",
+        ],
+    },
+    license = "apache",
+    package = "{maven_packages}",
+    project_description = "A CLI for the Play routes compiler",
+    project_name = "Play Routes Compiler CLI",
+    project_url = "https://github.com/lucidsoftware/play_routes_compiler_cli",
+    scm_url = "https://github.com/lucidsoftware/play_routes_compiler_cli.git",
+    target = ":play-routes-compiler-lib",
+)
+
+deploy_maven(
+    name = "deploy-maven",
+    release = "https://oss.sonatype.org/service/local/staging/deploy/maven2",
+    snapshot = "https://oss.sonatype.org/content/repositories/snapshots",
+    target = ":assemble-maven",
 )

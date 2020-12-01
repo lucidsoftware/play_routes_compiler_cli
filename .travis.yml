@@ -25,6 +25,8 @@ jobs:
       script: |
               if [ "$TRAVIS_SECURE_ENV_VARS" == true ] && [ -n "$TRAVIS_TAG" ]; then
                 echo "$PGP_SECRET" | base64 --decode | gpg --import
+                export DEPLOY_MAVEN_USERNAME=$SONATYPE_USERNAME
+                export DEPLOY_MAVEN_PASSWORD=$SONATYPE_PASSWORD
                 ./scripts/publish.sh
               else
                 echo "Skipped publishing."
