@@ -57,20 +57,25 @@ http_archive(
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
 
-# bazel-common
-bazelcommon_version = "0d4a76d35fe28caf5c887ff39bfd7374b993094b"
+####################### For Maven Publishing ############################
+skylib_version = "1.0.3"
 http_archive(
-  name = "bazel-common",
-  sha256 = "00f68b50b535e56daf563899cf6b924737d29127b8f2cb1fbcc473dbe4efad4a",
-  type = "zip",
-  strip_prefix = "bazel-common-{}".format(bazelcommon_version),
-  url = "https://github.com/google/bazel-common/archive/{}.zip".format(bazelcommon_version)
+    name = "bazel_skylib",
+    sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
+    type = "tar.gz",
+    url = "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/{}/bazel-skylib-{}.tar.gz".format(skylib_version, skylib_version),
 )
 
-load("@bazel-common//:workspace_defs.bzl", "google_common_workspace_rules")
-google_common_workspace_rules()
+graknlabs_bazel_distribution_version = "ebb4660cff37574876d37bf7c498bd735155554f"
+http_archive(
+    name = "graknlabs_bazel_distribution",
+    sha256 = "c3181786d2544a7df54bcf326d5e40e6ec0b86dbc6c42e58d40f8c2c2225859f",
+    strip_prefix = "bazel-distribution-{}".format(graknlabs_bazel_distribution_version),
+    type = "zip",
+    url = "https://github.com/graknlabs/bazel-distribution/archive/{}.zip".format(graknlabs_bazel_distribution_version),
+)
 
-# Make TRAVIS_TAG available in BUILD files
+# Make COMPILER_CLI_ARTIFACT_ID available in BUILD files
 env_vars_to_bzl_vars_version = "d67a600bb0917cd0e1c7a17ee78a3e2110fdbde2"
 http_archive(
   name = "env_vars_to_bzl_vars",
@@ -83,8 +88,9 @@ http_archive(
 load("@env_vars_to_bzl_vars//:env_vars_loader.bzl", "load_env_vars")
 load_env_vars(
   name = "env_vars",
-  env_vars = ["COMPILER_CLI_ARTIFACT_ID", "COMPILER_CLI_VERSION"]
+  env_vars = ["COMPILER_CLI_ARTIFACT_ID"]
 )
+####################################################################
 
 ## For tests
 play_version = "2.7" # This doesn't actually matter, since we're not using the default compilers rules_play_routes provides
