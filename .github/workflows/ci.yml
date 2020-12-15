@@ -1,0 +1,45 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    tags:
+      - '*--*'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install -g @bazel/bazelisk
+      - run: cat .bazelrc.travis >> .bazelrc
+      - run: ./test/run_all_tests.sh ci
+  
+  publish:
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    needs: build-and-test
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install -g @bazel/bazelisk
+      - run: cat .bazelrc.travis >> .bazelrc
+      - name: Parse Tag
+        run: |
+            # Tag should be <artifact_id suffix>--<version>
+            tag=$(awk -F '/' '{print $NF}' <<< $GITHUB_REF)
+            artifact_id=play-routes-compiler-cli_$(awk -F '--' '{print $1}' <<< $tag)
+            version=$(awk -F '--' '{print $2}' <<< $tag)
+            echo "COMPILER_CLI_ARTIFACT_ID=$artifact_id" >> $GITHUB_ENV
+            echo "COMPILER_CLI_VERSION=$version" >> $GITHUB_ENV
+      - name: Import gpg keys
+        run: echo "$PGP_SECRET" | base64 --decode | gpg --import
+        env:
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
+      - name: Publish to Maven
+        run: ./scripts/publish.sh
+        env:
+          DEPLOY_MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          DEPLOY_MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
