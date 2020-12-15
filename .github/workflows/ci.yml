@@ -1,0 +1,16 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install -g @bazel/bazelisk
+      - run: cat .bazelrc.travis >> .bazelrc
+      - run: ./test/run_all_tests.sh ci

@@ -1,0 +1,20 @@
+name: Publish
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - name: Wait for tests
+        uses: lucidsoftware/wait-on-check-action@v0.1-opt-auth
+        with:
+          ref: master
+          wait-interval: 30
+      - run: npm install -g @bazel/bazelisk
+      - run: cat .bazelrc.travis >> .bazelrc
+      # TODO: actually publish; will do in separate PR
+      - run: echo "published"
