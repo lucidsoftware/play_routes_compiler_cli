@@ -1,7 +1,7 @@
 # play_routes_compiler_cli
 Command line interface to the Play Routes Compiler
 
-[![Build Status](https://api.travis-ci.com/lucidsoftware/play_routes_compiler_cli.svg?branch=master)](https://travis-ci.com/lucidsoftware/play_routes_compiler_cli)
+[![Build Status](https://github.com/lucidsoftware/play_routes_compiler_cli/workflows/CI/badge.svg)](https://github.com/lucidsoftware/play_routes_compiler_cli/actions)
 
 To release a new version to Maven Central:
  1. Push a tag with this syntax: `S1.S2--P1.P2.P3` where `S1.S2` is the Scala version and `P1.P2.P3` is the Play version. (e.g. `2.13--2.7.3`)
