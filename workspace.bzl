@@ -9,7 +9,7 @@ def play_routes_compiler_cli_repositories():
         name = "play_routes_compiler_cli_maven",
         artifacts = [
             "com.github.scopt:scopt_2.13:3.7.1",
-            "com.typesafe.play:routes-compiler_2.13:2.7.3",
+            "com.typesafe.play:routes-compiler_2.13:2.8.7",
             "org.scala-sbt:compiler-interface:1.2.1",
             "org.scala-sbt:util-interface:1.2.0",
             "org.scala-lang:scala-compiler:2.13.2",
