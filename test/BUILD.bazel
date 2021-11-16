@@ -91,6 +91,7 @@ scala_test(
     "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_guice_2_12",
     "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_specs2_2_12",
     "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_test_2_12",
+    "@play_routes_compiler_cli_test_maven//:javax_inject_javax_inject",
   ]
 )
 
@@ -127,6 +128,7 @@ scala_test(
     "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_guice_2_12",
     "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_specs2_2_12",
     "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_test_2_12",
+    "@play_routes_compiler_cli_test_maven//:javax_inject_javax_inject",
     ":common"
   ]
 )
