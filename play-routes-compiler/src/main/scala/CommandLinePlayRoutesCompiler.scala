@@ -4,7 +4,7 @@ import java.io.File
 import java.nio.file.{Files, Paths}
 import play.routes.compiler._
 import play.routes.compiler.RoutesCompiler.RoutesCompilerTask
-import scala.jdk.CollectionConverters._
+import scala.collection.JavaConversions
 import scala.io.Source
 import scala.reflect.runtime.universe
 import scala.Console._
@@ -76,7 +76,7 @@ object CommandLinePlayRoutesCompiler {
   private def stripHeader(path: String): Unit = {
     val lines = Source.fromFile(path).getLines
     val sansHeader = lines.span(line => line.matches("^(//.*|\\s*)$"))._2.toList
-    Files.write(Paths.get(path), sansHeader.asJava)
+    Files.write(Paths.get(path), JavaConversions.asJavaIterable(sansHeader))
   }
 
   def main(args: Array[String]): Unit = {

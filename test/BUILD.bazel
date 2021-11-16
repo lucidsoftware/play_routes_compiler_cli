@@ -83,15 +83,14 @@ scala_test(
     # ":play-routes-namespace-router",
   ],
   deps = [
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_common_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_core_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_matcher_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_akka_akka_actor_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_guice_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_specs2_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_test_2_13",
-    "@play_routes_compiler_cli_test_maven//:javax_inject_javax_inject",
+    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_common_2_12",
+    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_core_2_12",
+    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_matcher_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_akka_akka_actor_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_guice_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_specs2_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_test_2_12",
   ]
 )
 
@@ -120,15 +119,14 @@ scala_test(
     ":play-routes-forward-only",
   ],
   deps = [
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_common_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_core_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_matcher_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_akka_akka_actor_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_guice_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_specs2_2_13",
-    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_test_2_13",
-    "@play_routes_compiler_cli_test_maven//:javax_inject_javax_inject",
+    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_common_2_12",
+    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_core_2_12",
+    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_matcher_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_akka_akka_actor_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_guice_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_specs2_2_12",
+    "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_test_2_12",
     ":common"
   ]
 )
@@ -140,6 +138,6 @@ scala_library(
         ":play-routes-reverse-router-only",
     ],
     deps = [
-        "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_2_13",
+        "@play_routes_compiler_cli_test_maven//:com_typesafe_play_play_2_12",
     ]
 )
