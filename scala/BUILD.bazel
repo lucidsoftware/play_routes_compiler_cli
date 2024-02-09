@@ -3,8 +3,7 @@ load(
     "configure_zinc_scala",
     "configure_bootstrap_scala",
 )
-
-scala_version = "2.13.2"
+load(":version.bzl", "scala_version")
 
 compiler_classpath = [
     "@play_routes_compiler_cli_maven//:org_scala_lang_scala_compiler",
