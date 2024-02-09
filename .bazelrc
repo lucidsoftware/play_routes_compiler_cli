@@ -1,5 +1,7 @@
 startup --expand_configs_in_place
 
+common --noenable_bzlmod
+
 common:ci --color=yes
 
 build:ci --verbose_failures
