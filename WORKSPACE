@@ -3,10 +3,10 @@ workspace(name = "play_routes_compiler_cli")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # rules_jvm_external
-RULES_JVM_EXTERNAL_TAG = "3.3"
+RULES_JVM_EXTERNAL_TAG = "d716bbe2dbaa068e495d25aeb1dcaa699f134eed"
 http_archive(
     name = "rules_jvm_external",
-    sha256 = "d85951a92c0908c80bd8551002d66cb23c3434409c814179c0ff026b53544dab",
+    sha256 = "d2bab2d2aefbadb2207ada5b82a7da99b7ff3f03ae565cbc194f124752d8bd06",
     strip_prefix = "rules_jvm_external-{}".format(RULES_JVM_EXTERNAL_TAG),
     type = "zip",
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/{}.zip".format(RULES_JVM_EXTERNAL_TAG),
@@ -24,13 +24,13 @@ play_routes_compiler_cli_test_pinned_maven_install()
 
 
 # higherkindness/rules_scala
-rules_scala_annex_version = "ff423d8bdd0e5383f8f2c048ffd7704bb51a91bf" # update this as needed
+rules_scala_annex_version = "lucid_2023-12-13" # update this as needed
 http_archive(
     name = "rules_scala_annex",
-    sha256 = "ae53e9ed5fecadc7baf4637b88109471602be73dda4e5ff6b4bf1767932703c0",
+    integrity = "sha256-cr+XAL/P6b1sgGi3FBEmqMgzScvu+3kAEmwz68lKei4=",
     strip_prefix = "rules_scala-{}".format(rules_scala_annex_version),
     type = "zip",
-    url = "https://github.com/higherkindness/rules_scala/archive/{}.zip".format(rules_scala_annex_version),
+    url = "https://github.com/lucidsoftware/rules_scala/archive/{}.zip".format(rules_scala_annex_version),
 )
 
 bind(
@@ -45,10 +45,10 @@ annex_pinned_maven_install()
 scala_register_toolchains()
 
 # Protobuf
-protobuf_version = "3.9.0"
+protobuf_version = "25.1"
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "8eb5ca331ab8ca0da2baea7fc0607d86c46c80845deca57109a5d637ccb93bb4",
+    sha256 = "eaafa4e19a6619c15df4c30d7213efbfd0f33ad16021cc5f72bbc5d0877346b5",
     strip_prefix = "protobuf-{}".format(protobuf_version),
     type = "zip",
     url = "https://github.com/protocolbuffers/protobuf/archive/v{}.zip".format(protobuf_version),
@@ -58,10 +58,10 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
 
 ####################### For Maven Publishing ############################
-skylib_version = "1.0.3"
+skylib_version = "1.4.1"
 http_archive(
     name = "bazel_skylib",
-    sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
+    sha256 = "b8a1527901774180afc798aeb28c4634bdccf19c4d98e7bdd1ce79d1fe9aaad7",
     type = "tar.gz",
     url = "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/{}/bazel-skylib-{}.tar.gz".format(skylib_version, skylib_version),
 )
