@@ -44,6 +44,8 @@ load("@annex//:defs.bzl", annex_pinned_maven_install = "pinned_maven_install")
 annex_pinned_maven_install()
 scala_register_toolchains()
 
+register_toolchains("//:java_toolchain_definition")
+
 # Protobuf
 protobuf_version = "25.1"
 http_archive(
