@@ -74,7 +74,7 @@ object CommandLinePlayRoutesCompiler {
   // The generated Routes files include non-reproducible headers
   // We need to remove these for Bazel caching to work
   private def stripHeader(path: String): Unit = {
-    val lines = Source.fromFile(path).getLines
+    val lines = Source.fromFile(path).getLines()
     val sansHeader = lines.span(line => line.matches("^(//.*|\\s*)$"))._2.toList
     Files.write(Paths.get(path), sansHeader.asJava)
   }
