@@ -5,14 +5,14 @@ Load 3rd party maven dependencies
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 load("//scala:version.bzl", "scala_version")
 
-play_version = "2.9.1"
+play_version = "3.0.1"
 
 def play_routes_compiler_cli_repositories():
     maven_install(
         name = "play_routes_compiler_cli_maven",
         artifacts = [
             "com.github.scopt:scopt_2.13:3.7.1",
-            "com.typesafe.play:play-routes-compiler_2.13:{}".format(play_version),
+            "org.playframework:play-routes-compiler_2.13:{}".format(play_version),
             "org.scala-lang:scala-compiler:{}".format(scala_version),
             "org.scala-lang:scala-library:{}".format(scala_version),
             "org.scala-lang:scala-reflect:{}".format(scala_version),
