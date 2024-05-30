@@ -91,6 +91,7 @@ object CommandLinePlayRoutesCompiler {
           config.additionalImports,
           config.generateForwardsRouter,
           config.generateReverseRouter,
+          config.generateReverseRouter,
           config.namespaceReverserRouter
         ),
         config.routesGenerator,

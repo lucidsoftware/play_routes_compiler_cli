@@ -5,7 +5,7 @@ Load 3rd party maven dependencies
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 load("//scala:version.bzl", "scala_version")
 
-play_version = "3.0.1"
+play_version = "3.0.3"
 
 def play_routes_compiler_cli_repositories():
     maven_install(
