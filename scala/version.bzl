@@ -1,1 +1,1 @@
-scala_version = "2.13.14"
+scala3_version = "3.4.2"

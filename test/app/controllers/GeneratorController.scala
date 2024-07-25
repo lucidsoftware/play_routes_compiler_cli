@@ -6,7 +6,7 @@ import play.api.mvc._
 
 class GeneratorController @Inject() (cc: ControllerComponents) extends AbstractController(cc)  {
 
-  def ok() = Action { request =>
+  def ok(): Action[AnyContent] = Action { request =>
     Ok
   }
 
