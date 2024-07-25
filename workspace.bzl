@@ -16,7 +16,7 @@ def play_routes_compiler_cli_repositories():
             "org.scala-lang:scala-compiler:{}".format(scala_version),
             "org.scala-lang:scala-library:{}".format(scala_version),
             "org.scala-lang:scala-reflect:{}".format(scala_version),
-            "org.scala-sbt:compiler-bridge_2.13:1.10.0-M1",
+            "org.scala-sbt:compiler-bridge_2.13:1.10.0",
         ],
         repositories = [
             "https://repo.maven.apache.org/maven2",

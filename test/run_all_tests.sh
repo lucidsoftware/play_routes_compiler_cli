@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Borrowed from lucidsoftware/rules_play_routes
 
-set -e
+set -euxo pipefail
 
 # TODO: Once the Bazel integration testing library is further along, we should
 # migrate to it

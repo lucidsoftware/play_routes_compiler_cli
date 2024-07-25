@@ -1,7 +1,7 @@
 load(
     "@rules_scala_annex//rules:scala.bzl",
-    "configure_zinc_scala",
     "configure_bootstrap_scala",
+    "configure_zinc_scala",
 )
 load(":version.bzl", "scala_version")
 
