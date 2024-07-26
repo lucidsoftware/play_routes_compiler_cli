@@ -13,9 +13,9 @@ scala_library(
     tags = ["maven_coordinates=com.lucidchart:" + artifact_id + ":{pom_version}"],
     visibility = ["//visibility:public"],
     deps = [
-        "@play_routes_compiler_cli_maven//:com_github_scopt_scopt_2_13",
-        "@play_routes_compiler_cli_maven//:org_playframework_play_routes_compiler_2_13",
-        "@play_routes_compiler_cli_maven//:org_scala_lang_scala_reflect",
+        "@play_routes_compiler_cli_maven//:com_github_scopt_scopt_3",
+        "@play_routes_compiler_cli_maven//:org_playframework_play_routes_compiler_3",
+        "@rules_scala_annex//src/main/scala/higherkindness/rules_scala/common/worker",
     ],
 )
 

@@ -1,62 +1,62 @@
 # Borrowed from lucidsoftware/rules_play_routes but using //play-routes-compiler for the compiler cli
 
-load("@rules_scala_annex//rules:scala.bzl", "scala_test", "scala_library")
+load("@rules_scala_annex//rules:scala.bzl", "scala_library", "scala_test")
 load("@io_bazel_rules_play_routes//play-routes:play-routes.bzl", "play_routes")
 
 play_routes(
-  name = "play-routes",
-  srcs = ["conf/routes"],
-  include_play_imports = True,
-  play_routes_compiler = "//play-routes-compiler",
+    name = "play-routes",
+    srcs = ["conf/routes"],
+    include_play_imports = True,
+    play_routes_compiler = "//play-routes-compiler",
 )
 
 play_routes(
-  name = "play-routes-basic1",
-  srcs = ["conf/basic1.routes"],
-  include_play_imports = True,
-  play_routes_compiler = "//play-routes-compiler"
+    name = "play-routes-basic1",
+    srcs = ["conf/basic1.routes"],
+    include_play_imports = True,
+    play_routes_compiler = "//play-routes-compiler",
 )
 
 play_routes(
-  name = "play-routes-basic2",
-  srcs = ["conf/basic2.routes"],
-  include_play_imports = True,
-  play_routes_compiler = "//play-routes-compiler"
+    name = "play-routes-basic2",
+    srcs = ["conf/basic2.routes"],
+    include_play_imports = True,
+    play_routes_compiler = "//play-routes-compiler",
 )
 
 play_routes(
-  name = "play-routes-large",
-  srcs = ["conf/large.routes"],
-  include_play_imports = True,
-  play_routes_compiler = "//play-routes-compiler"
+    name = "play-routes-large",
+    srcs = ["conf/large.routes"],
+    include_play_imports = True,
+    play_routes_compiler = "//play-routes-compiler",
 )
 
 play_routes(
-  name = "play-routes-additional-imports",
-  srcs = ["conf/additional_imports.routes"],
-  include_play_imports = True,
-  routes_imports = [
-    "rulesplayroutes.test.User",
-    "rulesplayroutes.test.binders._",
-  ],
-  play_routes_compiler = "//play-routes-compiler"
+    name = "play-routes-additional-imports",
+    srcs = ["conf/additional_imports.routes"],
+    include_play_imports = True,
+    play_routes_compiler = "//play-routes-compiler",
+    routes_imports = [
+        "rulesplayroutes.test.User",
+        "rulesplayroutes.test.binders._",
+    ],
 )
 
 play_routes(
-  name = "play-routes-specified-generator",
-  srcs = ["conf/generator.routes"],
-  include_play_imports = True,
-  routes_generator = "play.routes.compiler.InjectedRoutesGenerator",
-  play_routes_compiler = "//play-routes-compiler"
+    name = "play-routes-specified-generator",
+    srcs = ["conf/generator.routes"],
+    include_play_imports = True,
+    play_routes_compiler = "//play-routes-compiler",
+    routes_generator = "play.routes.compiler.InjectedRoutesGenerator",
 )
 
 play_routes(
-  name = "play-routes-reverse-router",
-  srcs = ["conf/reverse_router.routes"],
-  include_play_imports = True,
-  generate_reverse_router = True,
-  generate_forwards_router = True,
-  play_routes_compiler = "//play-routes-compiler"
+    name = "play-routes-reverse-router",
+    srcs = ["conf/reverse_router.routes"],
+    generate_forwards_router = True,
+    generate_reverse_router = True,
+    include_play_imports = True,
+    play_routes_compiler = "//play-routes-compiler",
 )
 
 # TOOD: Figure out what this does and add the test for it
@@ -70,69 +70,68 @@ play_routes(
 # )
 
 scala_test(
-  name = "play-routes-compiler-test",
-  srcs = glob(["app/**/*.scala"]) + [
-    "PlayRoutesCompilerTest.scala",
-    ":play-routes",
-    ":play-routes-large",
-    ":play-routes-basic1",
-    ":play-routes-basic2",
-    ":play-routes-additional-imports",
-    ":play-routes-specified-generator",
-    ":play-routes-reverse-router",
-    # ":play-routes-namespace-router",
-  ],
-  deps = [
-    "@play_routes_compiler_cli_test_maven//:org_apache_pekko_pekko_actor_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_common_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_core_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_matcher_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_configuration_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_guice_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_specs2_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_test_2_13",
-    "@play_routes_compiler_cli_test_maven//:javax_inject_javax_inject",
-  ]
+    name = "play-routes-compiler-test",
+    srcs = glob(["app/**/*.scala"]) + [
+        "PlayRoutesCompilerTest.scala",
+        ":play-routes",
+        ":play-routes-large",
+        ":play-routes-basic1",
+        ":play-routes-basic2",
+        ":play-routes-additional-imports",
+        ":play-routes-specified-generator",
+        ":play-routes-reverse-router",
+        # ":play-routes-namespace-router",
+    ],
+    deps = [
+        "@play_routes_compiler_cli_test_maven//:javax_inject_javax_inject",
+        "@play_routes_compiler_cli_test_maven//:org_apache_pekko_pekko_actor_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_configuration_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_guice_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_specs2_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_test_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_common_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_core_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_matcher_2_13",
+    ],
 )
 
 play_routes(
-  name = "play-routes-reverse-router-only",
-  srcs = ["conf2/routes"],
-  generate_reverse_router = True,
-  generate_forwards_router = False,
-  play_routes_compiler = "//play-routes-compiler",
+    name = "play-routes-reverse-router-only",
+    srcs = ["conf2/routes"],
+    generate_forwards_router = False,
+    generate_reverse_router = True,
+    play_routes_compiler = "//play-routes-compiler",
 )
 
 play_routes(
-  name = "play-routes-forward-only",
-  srcs = ["conf2/routes"],
-  generate_reverse_router = False,
-  generate_forwards_router = True,
-  play_routes_compiler = "//play-routes-compiler",
-
+    name = "play-routes-forward-only",
+    srcs = ["conf2/routes"],
+    generate_forwards_router = True,
+    generate_reverse_router = False,
+    play_routes_compiler = "//play-routes-compiler",
 )
 
 scala_test(
-  name = "split-forward-reverse-routes-test",
-  srcs = glob(["app/**/*.scala"]) + [
-    "PlayReverseRoutesOnlyTest.scala",
-    "PlayForwardRoutesOnlyTest.scala",
-    ":play-routes-forward-only",
-  ],
-  deps = [
-    "@play_routes_compiler_cli_test_maven//:org_apache_pekko_pekko_actor_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_common_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_core_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_matcher_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_configuration_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_guice_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_specs2_2_13",
-    "@play_routes_compiler_cli_test_maven//:org_playframework_play_test_2_13",
-    "@play_routes_compiler_cli_test_maven//:javax_inject_javax_inject",
-    ":common"
-  ]
+    name = "split-forward-reverse-routes-test",
+    srcs = glob(["app/**/*.scala"]) + [
+        "PlayReverseRoutesOnlyTest.scala",
+        "PlayForwardRoutesOnlyTest.scala",
+        ":play-routes-forward-only",
+    ],
+    deps = [
+        ":common",
+        "@play_routes_compiler_cli_test_maven//:javax_inject_javax_inject",
+        "@play_routes_compiler_cli_test_maven//:org_apache_pekko_pekko_actor_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_configuration_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_guice_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_specs2_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_playframework_play_test_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_common_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_core_2_13",
+        "@play_routes_compiler_cli_test_maven//:org_specs2_specs2_matcher_2_13",
+    ],
 )
 
 scala_library(
@@ -143,5 +142,5 @@ scala_library(
     ],
     deps = [
         "@play_routes_compiler_cli_test_maven//:org_playframework_play_2_13",
-    ]
+    ],
 )

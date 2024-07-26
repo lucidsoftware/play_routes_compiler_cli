@@ -1,15 +1,16 @@
 package rulesplayroutes.routes
 
-import java.io.File
+import higherkindness.rules_scala.common.worker.WorkerMain
+import java.io.{File, PrintStream}
 import java.nio.file.{Files, Paths}
 import play.routes.compiler._
 import play.routes.compiler.RoutesCompiler.RoutesCompilerTask
 import scala.jdk.CollectionConverters._
 import scala.io.Source
-import scala.reflect.runtime.universe
 import scala.Console._
+import scopt.OptionParser
 
-object CommandLinePlayRoutesCompiler {
+object CommandLinePlayRoutesCompiler extends WorkerMain[Unit] {
 
   case class Config(
     sources: Seq[File] = Seq.empty[File],
@@ -21,7 +22,7 @@ object CommandLinePlayRoutesCompiler {
     generateForwardsRouter: Boolean = true
   )
 
-  val parser = new scopt.OptionParser[Config]("scopt") {
+  val parser = new OptionParser[Config]("scopt") {
     head("Command Line Play Routes Compiler", "0.1")
 
     arg[File]("<outputDirectory>").required().action { (value, config) =>
@@ -38,21 +39,16 @@ object CommandLinePlayRoutesCompiler {
 
     opt[String]('g', "routesGenerator").valueName("<generator>").maxOccurs(1).action { (value, config) =>
       config.copy(routesGenerator = {
-        val runtimeMirror = universe.runtimeMirror(getClass.getClassLoader)
-        val module = try {
-          runtimeMirror.staticModule(value)
-        } catch {
-          case e: Exception => {
-            throw new Exception("Could not find routes generator class.", e)
-          }
-        }
-
         try {
-          val obj = runtimeMirror.reflectModule(module)
-          obj.instance.asInstanceOf[RoutesGenerator]
+          val name = if value.endsWith("$") then value else value + "$"
+          val clazz = java.lang.Class.forName(name, true, getClass.getClassLoader)
+          clazz.getField("MODULE$").get(null).asInstanceOf[RoutesGenerator]
         } catch {
           case e: Exception => {
-            throw new Exception(s"Could not cast ${value} as a RoutesGenerator", e)
+            throw new Exception(
+              s"Could not instantiate a routes generator from the given class: ${value}",
+              e,
+            )
           }
         }
       })
@@ -79,12 +75,11 @@ object CommandLinePlayRoutesCompiler {
     Files.write(Paths.get(path), sansHeader.asJava)
   }
 
-  def main(args: Array[String]): Unit = {
-    val config = parser.parse(args, Config()).getOrElse {
-      return System.exit(1)
-    }
-
-    val didAllSucceed = config.sources.forall { file =>
+  /**
+   * Do Play Routes compilation and return true if things succeeded, otherwise return false.
+   */
+  def compilePlayRoutes(config: Config): Boolean = {
+    config.sources.forall { file =>
       RoutesCompiler.compile(
         RoutesCompilerTask(
           file,
@@ -107,8 +102,16 @@ object CommandLinePlayRoutesCompiler {
           false
       }
     }
+  }
 
-    if (didAllSucceed) {
+  override def init(args: Option[Array[String]]): Unit = ()
+
+  protected def work(ctx: Unit, args: Array[String], out: PrintStream): Unit = {
+    val isSuccess = parser.parse(args, Config())
+      .map(compilePlayRoutes)
+      .getOrElse(false)
+
+    if (isSuccess) {
       System.exit(0)
     } else {
       System.exit(1)
