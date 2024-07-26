@@ -1,14 +1,16 @@
 package rulesplayroutes.routes
 
-import java.io.File
+import higherkindness.rules_scala.common.worker.WorkerMain
+import java.io.{File, PrintStream}
 import java.nio.file.{Files, Paths}
 import play.routes.compiler._
 import play.routes.compiler.RoutesCompiler.RoutesCompilerTask
 import scala.jdk.CollectionConverters._
 import scala.io.Source
 import scala.Console._
+import scopt.OptionParser
 
-object CommandLinePlayRoutesCompiler {
+object CommandLinePlayRoutesCompiler extends WorkerMain[Unit] {
 
   case class Config(
     sources: Seq[File] = Seq.empty[File],
@@ -20,7 +22,7 @@ object CommandLinePlayRoutesCompiler {
     generateForwardsRouter: Boolean = true
   )
 
-  val parser = new scopt.OptionParser[Config]("scopt") {
+  val parser = new OptionParser[Config]("scopt") {
     head("Command Line Play Routes Compiler", "0.1")
 
     arg[File]("<outputDirectory>").required().action { (value, config) =>
@@ -76,7 +78,7 @@ object CommandLinePlayRoutesCompiler {
   /**
    * Do Play Routes compilation and return true if things succeeded, otherwise return false.
    */
-  def doCompile(config: Config): Boolean = {
+  def compilePlayRoutes(config: Config): Boolean = {
     config.sources.forall { file =>
       RoutesCompiler.compile(
         RoutesCompilerTask(
@@ -102,9 +104,11 @@ object CommandLinePlayRoutesCompiler {
     }
   }
 
-  def main(args: Array[String]): Unit = {
+  override def init(args: Option[Array[String]]): Unit = ()
+
+  protected def work(ctx: Unit, args: Array[String], out: PrintStream): Unit = {
     val isSuccess = parser.parse(args, Config())
-      .map(doCompile)
+      .map(compilePlayRoutes)
       .getOrElse(false)
 
     if (isSuccess) {
