@@ -1,5 +1,7 @@
 package rulesplayroutes.routes
 
+import com.google.devtools.build.buildjar.jarhelper.JarCreator
+import higherkindness.rules_scala.common.error.AnnexWorkerError
 import higherkindness.rules_scala.common.worker.WorkerMain
 import java.io.{File, PrintStream}
 import java.nio.file.{Files, Paths}
@@ -15,6 +17,7 @@ object CommandLinePlayRoutesCompiler extends WorkerMain[Unit] {
   case class Config(
     sources: Seq[File] = Seq.empty[File],
     generatedDirectory: File = new File("."),
+    outputSrcJar: File = new File("."),
     additionalImports: Seq[String] = Seq.empty[String],
     routesGenerator: RoutesGenerator = InjectedRoutesGenerator,
     generateReverseRouter: Boolean = false,
@@ -28,6 +31,10 @@ object CommandLinePlayRoutesCompiler extends WorkerMain[Unit] {
     arg[File]("<outputDirectory>").required().action { (value, config) =>
       config.copy(generatedDirectory = value)
     }.text("directory to output compiled routes to")
+
+    arg[File]("<outputSrcJar>").required().action { (value, config) =>
+      config.copy(outputSrcJar = value)
+    }.text("file to output srcjar containing compiled routes to")
 
     arg[Seq[File]]("<source1>,<source2>...").unbounded().required().action { (value, config) =>
       config.copy(sources = value)
@@ -104,17 +111,28 @@ object CommandLinePlayRoutesCompiler extends WorkerMain[Unit] {
     }
   }
 
+  def generateJar(config: Config): Unit = {
+    val jarCreator = new JarCreator(config.outputSrcJar.toPath())
+    jarCreator.addDirectory(config.generatedDirectory.toPath())
+    jarCreator.setCompression(false)
+    jarCreator.setNormalize(true)
+    jarCreator.setVerbose(false)
+    jarCreator.execute()
+  }
+
   override def init(args: Option[Array[String]]): Unit = ()
 
   protected def work(ctx: Unit, args: Array[String], out: PrintStream): Unit = {
-    val isSuccess = parser.parse(args, Config())
-      .map(compilePlayRoutes)
-      .getOrElse(false)
+    val finalArgs = args.toList.flatMap {
+      case arg if arg.startsWith("@") => Files.readAllLines(Paths.get(arg.tail)).asScala
+      case arg => Array(arg)
+    }
+    val config = parser.parse(finalArgs, Config()).getOrElse(throw new AnnexWorkerError(1))
 
-    if (isSuccess) {
-      System.exit(0)
+    if (compilePlayRoutes(config)) {
+      generateJar(config)
     } else {
-      System.exit(1)
+      throw new AnnexWorkerError(1)
     }
   }
 }
