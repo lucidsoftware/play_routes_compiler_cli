@@ -89,11 +89,11 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
 
 # higherkindness/rules_scala
-rules_scala_annex_version = "c8c4345e3f354753ed4ae7830618467ab59262c6"
+rules_scala_annex_version = "f23c16037db66efb541dbbf5e17e6604886c85ff"
 
 http_archive(
     name = "rules_scala_annex",
-    integrity = "sha256-pmES8mOOeirB5woNYT2w97+5+C0Bt8ghrj9lHBKkMy8=",
+    integrity = "sha256-b/cPeh6J1Mq63u6fSWdEHAKL/kWfPhZcNL7m9If7PWM=",
     strip_prefix = "rules_scala-{}".format(rules_scala_annex_version),
     type = "zip",
     url = "https://github.com/lucidsoftware/rules_scala/archive/{}.zip".format(rules_scala_annex_version),
@@ -154,19 +154,19 @@ load_env_vars(
 ####################################################################
 
 ## For tests
-play_version = "2.7"  # This doesn't actually matter, since we're not using the default compilers rules_play_routes provides
+play_version = "3.0"  # This doesn't actually matter, since we're not using the default compilers rules_play_routes provides
 
-rules_play_routes_version = "8dbe5ee4359c30cfb7d368fed9b2df59c9665eb1"
+rules_play_routes_version = "22a30c6d2d315e532b4e1963bb9e8a167c470545"
 
 http_archive(
-    name = "io_bazel_rules_play_routes",
-    sha256 = "d93e6d53440a53da4c33f78736b8b78c9a1e84623bcccd6a1cbff55e1c318c97",
+    name = "rules_play_routes",
+    sha256 = "cc9e431be031f775da1610341dd4429ff27e7c1e191f8a3018e8b39da4ca00f1",
     strip_prefix = "rules_play_routes-{}".format(rules_play_routes_version),
     type = "zip",
     url = "https://github.com/lucidsoftware/rules_play_routes/archive/{}.zip".format(rules_play_routes_version),
 )
 
-load("@io_bazel_rules_play_routes//:workspace.bzl", "play_routes_repositories")
+load("@rules_play_routes//:workspace.bzl", "play_routes_repositories")
 
 play_routes_repositories(play_version)
 

@@ -13,7 +13,9 @@ class PlayForwardRoutesOnlyTest extends Specification {
 
   "Play Routes Compiler when run through Bazel" should {
     "Compiles forward routes correctly" in new WithApplication(app) { withApp =>
-      status(route(withApp.app, FakeRequest(GET, TestReverseRoutesOnly.generate(10))).get) mustEqual OK
+      override def running() = {
+        status(route(withApp.app, FakeRequest(GET, TestReverseRoutesOnly.generate(10))).get) mustEqual OK
+      }
     }
   }
 }

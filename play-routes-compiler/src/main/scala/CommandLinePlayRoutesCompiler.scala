@@ -3,74 +3,93 @@ package rulesplayroutes.routes
 import com.google.devtools.build.buildjar.jarhelper.JarCreator
 import higherkindness.rules_scala.common.error.AnnexWorkerError
 import higherkindness.rules_scala.common.worker.WorkerMain
+import higherkindness.rules_scala.common.sandbox.SandboxUtil
 import java.io.{File, PrintStream}
-import java.nio.file.{Files, Paths}
+import java.nio.file.{Files, Path, Paths}
 import play.routes.compiler._
 import play.routes.compiler.RoutesCompiler.RoutesCompilerTask
+import scala.collection.mutable.ListBuffer
 import scala.jdk.CollectionConverters._
 import scala.io.Source
+import scala.util.{Try, Success, Failure}
+import scopt.Read
 import scala.Console._
 import scopt.OptionParser
 
 object CommandLinePlayRoutesCompiler extends WorkerMain[Unit] {
+  implicit val listPathRead: Read[List[Path]] = Read.reads { commaList =>
+    commaList.split(',').view.map(Paths.get(_)).toList
+  }
 
   case class Config(
-    sources: Seq[File] = Seq.empty[File],
-    generatedDirectory: File = new File("."),
-    outputSrcJar: File = new File("."),
-    additionalImports: Seq[String] = Seq.empty[String],
-    routesGenerator: RoutesGenerator = InjectedRoutesGenerator,
-    generateReverseRouter: Boolean = false,
-    namespaceReverserRouter: Boolean = false,
-    generateForwardsRouter: Boolean = true
+    var sources: List[Path] = List.empty[Path],
+    var outputDirectory: Path = Paths.get("."),
+    var outputSrcJar: Path = Paths.get("."),
+    var additionalImports: List[String] = List.empty[String],
+    var routesGenerator: RoutesGenerator = InjectedRoutesGenerator,
+    var generateReverseRouter: Boolean = false,
+    var namespaceReverserRouter: Boolean = false,
+    var generateForwardsRouter: Boolean = true
   )
 
-  val parser = new OptionParser[Config]("scopt") {
+  def parser(workDir: Path) = new OptionParser[Config]("scopt") {
     head("Command Line Play Routes Compiler", "0.1")
 
-    arg[File]("<outputDirectory>").required().action { (value, config) =>
-      config.copy(generatedDirectory = value)
+    arg[Path]("<outputDirectory>").required().action { (outputDirectory, config) =>
+      config.outputDirectory = SandboxUtil.getSandboxPath(workDir, outputDirectory)
+      config
     }.text("directory to output compiled routes to")
 
-    arg[File]("<outputSrcJar>").required().action { (value, config) =>
-      config.copy(outputSrcJar = value)
+    arg[Path]("<outputSrcJar>").required().action { (outputSrcJar, config) =>
+      config.outputSrcJar = SandboxUtil.getSandboxPath(workDir, outputSrcJar)
+      config
     }.text("file to output srcjar containing compiled routes to")
 
-    arg[Seq[File]]("<source1>,<source2>...").unbounded().required().action { (value, config) =>
-      config.copy(sources = value)
+    arg[List[Path]]("<source1>,<source2>...").unbounded().required().action { (sources, config) =>
+      config.sources = sources.map(SandboxUtil.getSandboxPath(workDir, _))
+      config
     }.text("routes to compile")
 
-    opt[String]('i', "routesImport").valueName("<import>").unbounded().action { (value, config) =>
-      config.copy(additionalImports = config.additionalImports ++ Seq(value))
+    opt[String]('i', "routesImport").valueName("<import>").unbounded().action { (routesImport, config) =>
+      config.additionalImports = config.additionalImports ++ List(routesImport)
+      config
     }.text("Imports for the router")
 
-    opt[String]('g', "routesGenerator").valueName("<generator>").maxOccurs(1).action { (value, config) =>
-      config.copy(routesGenerator = {
+    opt[String]('g', "routesGenerator").valueName("<generator>").maxOccurs(1).action { (routesGeneratorClassString, config) =>
+      config.routesGenerator = {
         try {
-          val name = if value.endsWith("$") then value else value + "$"
+          val name = if (routesGeneratorClassString.endsWith("$")) {
+            routesGeneratorClassString
+          } else {
+            routesGeneratorClassString + "$"
+          }
           val clazz = java.lang.Class.forName(name, true, getClass.getClassLoader)
           clazz.getField("MODULE$").get(null).asInstanceOf[RoutesGenerator]
         } catch {
           case e: Exception => {
             throw new Exception(
-              s"Could not instantiate a routes generator from the given class: ${value}",
+              s"Could not instantiate a routes generator from the given class: ${routesGeneratorClassString}",
               e,
             )
           }
         }
-      })
+      }
+      config
     }.text("The full class of the routes generator, e.g., play.routes.compiler.InjectedRoutesGenerator")
 
     opt[Unit]('r', "generateReverseRouter").maxOccurs(1).action { (value, config) =>
-      config.copy(generateReverseRouter = true)
+      config.generateReverseRouter = true
+      config
     }.text("Whether the reverse router should be generated. Setting to false may reduce compile times if it's not needed.")
 
     opt[Unit]('n', "namespaceReverserRouter").maxOccurs(1).action { (value, config) =>
-      config.copy(namespaceReverserRouter = true)
+      config.namespaceReverserRouter = true
+      config
     }.text("Whether the reverse router should be namespaced. Useful if you have many routers that use the same actions.")
 
     opt[Boolean]('f', "generateForwardsRouter").maxOccurs(1).action { (value, config) =>
-      config.copy(generateForwardsRouter = value)
+      config.generateForwardsRouter = value
+      config
     }.text("Whether the forwards router should be generated. Setting this to false should allow us to only generate reverse routes for a project")
   }
 
@@ -85,11 +104,11 @@ object CommandLinePlayRoutesCompiler extends WorkerMain[Unit] {
   /**
    * Do Play Routes compilation and return true if things succeeded, otherwise return false.
    */
-  def compilePlayRoutes(config: Config): Boolean = {
-    config.sources.forall { file =>
+  private def compilePlayRoutes(config: Config, out: PrintStream): Try[Unit] =  Try {
+    config.sources.foreach { path =>
       RoutesCompiler.compile(
         RoutesCompilerTask(
-          file,
+          path.toFile,
           config.additionalImports,
           config.generateForwardsRouter,
           config.generateReverseRouter,
@@ -97,42 +116,51 @@ object CommandLinePlayRoutesCompiler extends WorkerMain[Unit] {
           config.namespaceReverserRouter
         ),
         config.routesGenerator,
-        config.generatedDirectory
+        config.outputDirectory.toFile(),
       ) match {
         case Right(generatedFiles) =>
           generatedFiles.foreach { f =>
             stripHeader(f.getPath)
           }
-          true
         case Left(errors) =>
-          Console.err.println(s"${RESET}${RED}Play Routes Compilation Error:${RESET} Failed to compile routes for ${file}. Errors: ${errors}")
-          false
+          throw new Exception(
+            s"${RESET}${RED}Play Routes Compilation Error:${RESET} Failed to compile routes for ${path}. Errors: ${errors}"
+          )
       }
     }
   }
 
   def generateJar(config: Config): Unit = {
-    val jarCreator = new JarCreator(config.outputSrcJar.toPath())
-    jarCreator.addDirectory(config.generatedDirectory.toPath())
+    val jarCreator = new JarCreator(config.outputSrcJar)
+    jarCreator.addDirectory(config.outputDirectory)
     jarCreator.setCompression(false)
     jarCreator.setNormalize(true)
     jarCreator.setVerbose(false)
     jarCreator.execute()
   }
 
+  /**
+   * Read any args passed in via files, so we can pass them to the arg parser
+   */
+  private def readArgsFromArgFiles(args: Array[String]): List[String] = {
+    val builder = new ListBuffer[String]()
+    args.foreach {
+      case arg if arg.startsWith("@") => builder.addAll(Files.readAllLines(Paths.get(arg.tail)).asScala)
+      case arg => builder.addOne(arg)
+    }
+    builder.result()
+  }
+
   override def init(args: Option[Array[String]]): Unit = ()
 
-  protected def work(ctx: Unit, args: Array[String], out: PrintStream): Unit = {
-    val finalArgs = args.toList.flatMap {
-      case arg if arg.startsWith("@") => Files.readAllLines(Paths.get(arg.tail)).asScala
-      case arg => Array(arg)
-    }
-    val config = parser.parse(finalArgs, Config()).getOrElse(throw new AnnexWorkerError(1))
+  protected def work(ctx: Unit, args: Array[String], out: PrintStream, workDir: Path, verbosity: Int): Unit = {
+    val config = parser(workDir).parse(
+      readArgsFromArgFiles(args), Config()
+    ).getOrElse(throw new AnnexWorkerError(1))
 
-    if (compilePlayRoutes(config)) {
-      generateJar(config)
-    } else {
-      throw new AnnexWorkerError(1)
+    compilePlayRoutes(config, out) match {
+      case Success(_) => generateJar(config)
+      case Failure(e) => throw new AnnexWorkerError(1, "Failed to compile play routes", e)
     }
   }
 }

@@ -12,11 +12,13 @@ class PlayReverseRoutesOnlyTest extends Specification {
 
   "Play Routes Compiler when run through Bazel" should {
     "Compiles reverse routes in shared project correctly" in new WithApplication(app) { withApp =>
-      // The common project generates the correct reverse route.
-      TestReverseRoutesOnly.generate(10) mustEqual("/okReverseAgain/10")
+      override def running() = {
+        // The common project generates the correct reverse route.
+        TestReverseRoutesOnly.generate(10) mustEqual("/okReverseAgain/10")
 
-      // This verifies availability of the reverse route for the test target.
-      ReverseRoutesController.anotherOk(20).path mustEqual("/okReverseAgain/20")
+        // This verifies availability of the reverse route for the test target.
+        ReverseRoutesController.anotherOk(20).path mustEqual("/okReverseAgain/20")
+      }
     }
 
   }
