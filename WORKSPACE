@@ -5,9 +5,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # rules_java
 http_archive(
     name = "rules_java",
-    sha256 = "647bb31c0d51882549def6f67ee9078df697043406ed4a5144bbdf3b17f91e33",
+    sha256 = "41131de4417de70b9597e6ebd515168ed0ba843a325dc54a81b92d7af9a7b3ea",
     urls = [
-        "https://github.com/bazelbuild/rules_java/releases/download/7.8.0/rules_java-7.8.0.tar.gz",
+        "https://github.com/bazelbuild/rules_java/releases/download/7.9.0/rules_java-7.9.0.tar.gz",
     ],
 )
 
