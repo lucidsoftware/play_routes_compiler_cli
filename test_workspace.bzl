@@ -11,12 +11,12 @@ def play_routes_compiler_cli_test_repositories():
     maven_install(
         name = "play_routes_compiler_cli_test_maven",
         artifacts = [
-            "org.specs2:specs2-common_2.13:{}".format(specs2_version),
-            "org.specs2:specs2-core_2.13:{}".format(specs2_version),
-            "org.specs2:specs2-matcher_2.13:{}".format(specs2_version),
-            "org.playframework:play_2.13:{}".format(play_version),
-            "org.playframework:play-test_2.13:{}".format(play_version),
-            "org.playframework:play-specs2_2.13:{}".format(play_version),
+            "org.specs2:specs2-common_3:{}".format(specs2_version),
+            "org.specs2:specs2-core_3:{}".format(specs2_version),
+            "org.specs2:specs2-matcher_3:{}".format(specs2_version),
+            "org.playframework:play_3:{}".format(play_version),
+            "org.playframework:play-test_3:{}".format(play_version),
+            "org.playframework:play-specs2_3:{}".format(play_version),
         ],
         repositories = [
             "https://repo.maven.apache.org/maven2",

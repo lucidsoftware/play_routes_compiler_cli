@@ -10,6 +10,7 @@ default_java_toolchain(
     name = "repository_default_toolchain_21",
     configuration = DEFAULT_TOOLCHAIN_CONFIGURATION,
     java_runtime = "@rules_java//toolchains:remotejdk_21",
+    javac_supports_worker_multiplex_sandboxing = True,
     # some of the default options make scala compilation fail in the test package
     misc = [opt for opt in DEFAULT_JAVACOPTS if not opt.startswith("-Xep")],
     source_version = "21",
